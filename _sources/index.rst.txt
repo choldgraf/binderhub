@@ -15,10 +15,10 @@ Site TOC
 What is BinderHub?
 -------------------
 BinderHub allows you to BUILD and REGISTER a Docker image using a GitHub
-repository along with a branch name / commit / tag. It also connects with
-JupyterHub, allowing you to create a public IP address that allows users to
-interact with the code / environment you specify in the repository within
-a live JupyterHub instance.
+repository, then CONNECT with JupyterHub, allowing you to create a
+public IP address that allows users to interact with the code / environment
+you specify in the repository within a live JupyterHub instance. You can also
+specify a specific branch name / commit / tag to serve.
 
 It is similar in spirit to the existing `Binder <http://mybinder.org>`_ service.
 It's goal is to tie together:
