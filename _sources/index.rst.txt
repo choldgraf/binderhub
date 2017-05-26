@@ -27,6 +27,9 @@ It's goal is to tie together:
   a scalable system for authenticating users and spawning single user
   Jupyter Notebook servers, and
 
+- `Repo2Docker <https://github.com/jupyter/repo2docker>`_ which generates
+  a Docker image using a Git repository hosted online. This heavily utilizes:
+
 - Red Hat's `source-to-image <https://github.com/openshift/source-to-image>`_
   project from OpenShift to build a Docker image from a set of dependencies.
 
