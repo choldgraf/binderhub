@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The BuilderHub Architecture &#8212; BuilderHub 0.0.1 documentation</title>
+    <title>The BinderHub Architecture &#8212; BinderHub 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="BuilderHub Documentation" href="index.html" />
+    <link rel="prev" title="How to set up BinderHub" href="setup.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -34,7 +34,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -42,11 +42,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="the-builderhub-architecture">
-<span id="diagram"></span><h1>The BuilderHub Architecture<a class="headerlink" href="#the-builderhub-architecture" title="Permalink to this headline">¶</a></h1>
-<p>BuilderHub connects several services together to provide on-the-fly creation
-and registry of Docker images. Here is a high-level overview of the components
-that make up BuilderHub.</p>
+  <div class="section" id="the-binderhub-architecture">
+<span id="diagram"></span><h1>The BinderHub Architecture<a class="headerlink" href="#the-binderhub-architecture" title="Permalink to this headline">¶</a></h1>
+<p>BinderHub connects several services together to provide on-the-fly creation
+and registry of Docker images. It primarily does this following things:</p>
+<ol class="arabic simple">
+<li>Automatically builds a Docker container image using <a class="reference external" href="URL">Repo2Docker</a>.</li>
+<li>Registers this Docker image with an online registry.</li>
+<li>Sends registry information to a JupyterHub instance that serves the Docker image.</li>
+</ol>
+<p>Here is a high-level overview of the components that make up BinderHub.</p>
 <img src="_static/binder_flow.svg" /></div>
 
 
@@ -58,7 +63,7 @@ that make up BuilderHub.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">BuilderHub Documentation</a></li>
+      <li>Previous: <a href="setup.html" title="previous chapter">How to set up BinderHub</a></li>
   </ul></li>
 </ul>
 </div>
@@ -84,10 +89,10 @@ that make up BuilderHub.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, Yuvi Panda.
+      &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

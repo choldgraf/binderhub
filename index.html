@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>BuilderHub Documentation &#8212; BuilderHub 0.0.1 documentation</title>
+    <title>BinderHub Documentation &#8212; BinderHub 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The BuilderHub Architecture" href="diagram.html" />
+    <link rel="next" title="How to set up BinderHub" href="setup.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -34,7 +34,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -42,8 +42,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="builderhub-documentation">
-<h1>BuilderHub Documentation<a class="headerlink" href="#builderhub-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="binderhub-documentation">
+<h1>BinderHub Documentation<a class="headerlink" href="#binderhub-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This project is under active development and subject to change.</p>
@@ -52,39 +52,46 @@
 <h2>Site TOC<a class="headerlink" href="#site-toc" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="diagram.html">The BuilderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">How to set up BinderHub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#choose-your-hardware">Choose your hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#set-up-a-kubernetes-cluster">Set up a Kubernetes cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#set-up-and-configure-jupyterhub">Set up and configure JupyterHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#choosing-a-docker-container-registry">Choosing a Docker container registry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diagram.html">The BinderHub Architecture</a></li>
 </ul>
 </div>
 </div>
-<div class="section" id="what-is-builderhub">
-<h2>What is BuilderHub?<a class="headerlink" href="#what-is-builderhub" title="Permalink to this headline">¶</a></h2>
-<p>BuilderHub allows you to BUILD and REGISTER a Docker image using a GitHub
+<div class="section" id="what-is-binderhub">
+<h2>What is BinderHub?<a class="headerlink" href="#what-is-binderhub" title="Permalink to this headline">¶</a></h2>
+<p>BinderHub allows you to BUILD and REGISTER a Docker image using a GitHub
 repository along with a branch name / commit / tag. It also connects with
 JupyterHub, allowing you to create a public IP address that allows users to
 interact with the code / environment you specify in the repository within
 a live JupyterHub instance.</p>
-<p>It is similar in spirit to the existing <a class="reference external" href="mybinder.org">Binder</a> service. It&#8217;s
-goal is to tie together:</p>
+<p>It is similar in spirit to the existing <a class="reference external" href="http://mybinder.org">Binder</a> service.
+It’s goal is to tie together:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/jupyterhub/jupyterhub">JupyterHub</a> to provide
 a scalable system for authenticating users and spawning single user
 Jupyter Notebook servers, and</li>
-<li>Red Hat&#8217;s <a class="reference external" href="https://github.com/openshift/source-to-image">source-to-image</a>
+<li>Red Hat’s <a class="reference external" href="https://github.com/openshift/source-to-image">source-to-image</a>
 project from OpenShift to build a Docker image from a set of dependencies.</li>
 </ul>
-<p>Builderhub is created using Python, kubernetes, tornado, and traitlets. As such,
+<p>BinderHub is created using Python, kubernetes, tornado, and traitlets. As such,
 it should be a familiar technical foundation for Jupyter developers.</p>
 </div>
-<div class="section" id="why-builderhub">
-<h2>Why BuilderHub?<a class="headerlink" href="#why-builderhub" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-binderhub">
+<h2>Why BinderHub?<a class="headerlink" href="#why-binderhub" title="Permalink to this headline">¶</a></h2>
 <p>Collections of Jupyter notebooks are becoming more common in scientific research
 and data science. The ability to serve these collections on demand enhances the
 usefulness of these notebooks.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p><strong>builderhub</strong> is based on Python 3, and it can be installed using pip:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">builderhub</span>
+<p><strong>BinderHub</strong> is based on Python 3, and it can be installed using pip:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">binderhub</span>
 </pre></div>
 </div>
 </div>
@@ -102,10 +109,10 @@ usefulness of these notebooks.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">BuilderHub Documentation</a><ul>
+<li><a class="reference internal" href="#">BinderHub Documentation</a><ul>
 <li><a class="reference internal" href="#site-toc">Site TOC</a></li>
-<li><a class="reference internal" href="#what-is-builderhub">What is BuilderHub?</a></li>
-<li><a class="reference internal" href="#why-builderhub">Why BuilderHub?</a></li>
+<li><a class="reference internal" href="#what-is-binderhub">What is BinderHub?</a></li>
+<li><a class="reference internal" href="#why-binderhub">Why BinderHub?</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#license">License</a></li>
 </ul>
@@ -115,7 +122,7 @@ usefulness of these notebooks.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="diagram.html" title="next chapter">The BuilderHub Architecture</a></li>
+      <li>Next: <a href="setup.html" title="next chapter">How to set up BinderHub</a></li>
   </ul></li>
 </ul>
 </div>
@@ -141,10 +148,10 @@ usefulness of these notebooks.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, Yuvi Panda.
+      &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
