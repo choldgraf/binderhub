@@ -59,36 +59,15 @@ to do this, you’ll need four things:</p>
 commonly a cloud computing platform such as Google Cloud, Microsoft Azure,
 or Amazon EC2. You can also deploy BinderHub on your own hardware if you
 so choose. &lt;&lt;&lt;Add links to these deployments…maybe instructions to set
-up on their platforms as well&gt;&gt;&gt;.</p>
+up on their platforms as well…we should do this in z2jh and link here.&gt;&gt;&gt;.</p>
 </div>
 <div class="section" id="set-up-a-kubernetes-cluster">
 <h2>Set up a Kubernetes cluster<a class="headerlink" href="#set-up-a-kubernetes-cluster" title="Permalink to this headline">¶</a></h2>
 <p>This is also platform-dependent, though it is relatively straightforward
 to set up kubernetes on most cloud computing providers. For instructions
-on how to do this, see &lt;&lt;&lt;zero to jupyterhub link&gt;&gt;&gt;.</p>
-</div>
-<div class="section" id="set-up-and-configure-jupyterhub">
-<h2>Set up and configure JupyterHub<a class="headerlink" href="#set-up-and-configure-jupyterhub" title="Permalink to this headline">¶</a></h2>
-<p>To set up JupyterHub on the cloud, see &lt;&lt;&lt;zero to jupyterhub link&gt;&gt;&gt;.</p>
-<p>Once you’ve got JupyterHub running, update your <code class="docutils literal"><span class="pre">config.yaml</span></code> file to
-include the following lines.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">somevariable</span><span class="p">:</span>
-   <span class="n">somevalue</span><span class="p">:</span> <span class="s1">&#39;therightvalueprobablynotthisname&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="choosing-a-docker-container-registry">
-<h2>Choosing a Docker container registry<a class="headerlink" href="#choosing-a-docker-container-registry" title="Permalink to this headline">¶</a></h2>
-<p>The container registry is where your built Docker images will be registered
-so that JupyterHub can serve them. There are already several options
-for registering / hosting Docker images. The two most common ones are
-DockerHub and the Google Container Registry.</p>
-<p>To specify which of these you wish to use, add the following to your
-<code class="docutils literal"><span class="pre">config.yaml</span></code> file.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">someothervariable</span><span class="p">:</span>
-   <span class="n">somevalue</span><span class="p">:</span> <span class="s1">&#39;theotherrightvaluemaybethisisitthistime&#39;</span>
-</pre></div>
-</div>
+on how to do this, see the <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html">Zero to JupyterHub</a>
+tutorial on setting up Kubernetes.</p>
+<p>&lt;&lt;TODO: Configure JupyterHub to use binder&gt;&gt;</p>
 </div>
 </div>
 
@@ -106,8 +85,6 @@ DockerHub and the Google Container Registry.</p>
 <li><a class="reference internal" href="#">How to set up BinderHub</a><ul>
 <li><a class="reference internal" href="#choose-your-hardware">Choose your hardware</a></li>
 <li><a class="reference internal" href="#set-up-a-kubernetes-cluster">Set up a Kubernetes cluster</a></li>
-<li><a class="reference internal" href="#set-up-and-configure-jupyterhub">Set up and configure JupyterHub</a></li>
-<li><a class="reference internal" href="#choosing-a-docker-container-registry">Choosing a Docker container registry</a></li>
 </ul>
 </li>
 </ul>
