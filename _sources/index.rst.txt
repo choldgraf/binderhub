@@ -5,6 +5,10 @@ BinderHub
 
    BinderHub is under active development and subject to breaking changes.
 
+The goal of BinderHub is to allow users to quickly create custom
+computing environments that can be accessed remotely (e.g., at a specific URL)
+by multiple users. The following steps will help you get started in deploying
+your own BinderHub instance.
 
 Creating your BinderHub
 -----------------------

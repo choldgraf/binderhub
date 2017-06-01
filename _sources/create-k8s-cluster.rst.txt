@@ -32,4 +32,4 @@ use and you can see some examples of this below. To create your cluster, run the
       --machine-type=n1-highmem-4 --disable-addons=HttpLoadBalancing\
       --zone=us-central1-b
 
-Next, we need to `set up tools on the cluster <setup-cluster-tools.rst>`_.
+Next, we need to `set up tools on the cluster <setup-cluster-tools.html>`_.
