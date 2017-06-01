@@ -1,0 +1,177 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Set up BinderHub &#8212; BinderHub 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deploy your Binder" href="deploy.html" />
+    <link rel="prev" title="Set up DNS for your project" href="setup-dns.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="set-up-binderhub">
+<h1>Set up BinderHub<a class="headerlink" href="#set-up-binderhub" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="download-the-helm-chart-and-deployment-repo-for-binderhub">
+<h2>Download the Helm Chart and deployment repo for BinderHub<a class="headerlink" href="#download-the-helm-chart-and-deployment-repo-for-binderhub" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>git clone <a class="reference external" href="https://github.com/jupyterhub/helm-chart">https://github.com/jupyterhub/helm-chart</a>
+git clone <a class="reference external" href="https://github.com/jupyterhub/binderhub-deploy">https://github.com/jupyterhub/binderhub-deploy</a></div></blockquote>
+</div>
+<div class="section" id="install-the-support-applications">
+<h2>Install the ‘support’ applications<a class="headerlink" href="#install-the-support-applications" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>cd binderhub-deploy/support
+helm dep up
+cd ..
+cd ..
+helm install –name=support –namespace=support binderhub-deploy/support</p>
+<p>Now find the IP of the nginx-ingress-controller:</p>
+<blockquote>
+<div>kubectl –namespace=support get svc support-nginx-ingress-controller</div></blockquote>
+<p>CHRISH: 104.154.196.15
+Carol: 35.184.149.63</p>
+<p>And make DNS records for both binder and jupyterhub that point to that IP.</p>
+</div></blockquote>
+</div>
+<div class="section" id="configure-the-helmchart">
+<h2>Configure the helmchart<a class="headerlink" href="#configure-the-helmchart" title="Permalink to this headline">¶</a></h2>
+<p>First create a file called <code class="docutils literal"><span class="pre">secret.yaml</span></code>. In it, put the following code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyterhub</span><span class="p">:</span>
+    <span class="n">hub</span><span class="p">:</span>
+        <span class="n">cookieSecret</span><span class="p">:</span> <span class="s2">&quot;&lt;openssl rand -hex 32&gt;&quot;</span>
+    <span class="n">proxy</span><span class="p">:</span>
+        <span class="n">secretToken</span><span class="p">:</span> <span class="s2">&quot;&lt;openssl rand -hex 32&gt;&quot;</span>
+<span class="n">registry</span><span class="p">:</span>
+    <span class="n">password</span><span class="p">:</span> <span class="o">|</span>
+        <span class="o">&lt;</span><span class="n">the</span> <span class="n">json</span> <span class="n">file</span> <span class="kn">from</span> <span class="nn">service</span> <span class="n">account</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Next, create a file called <code class="docutils literal"><span class="pre">config.yaml</span></code>. In it, put the following code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="p">:</span>
+    <span class="c1"># Note this is project *ID*, not just project</span>
+    <span class="c1">#</span>
+    <span class="c1"># `&lt;prefix&gt;` can be any string and will be appended to image names</span>
+    <span class="c1"># e.g., `dev` and `prod`.</span>
+    <span class="n">prefix</span><span class="p">:</span>  <span class="n">gcr</span><span class="o">.</span><span class="n">io</span><span class="o">/&lt;</span><span class="n">google</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;/&lt;</span><span class="n">prefix</span><span class="o">&gt;</span>
+
+<span class="n">hub</span><span class="p">:</span>
+    <span class="c1"># This is the DNS that you&#39;ve configured. E.g. `beta.mybinder.org`</span>
+    <span class="c1"># Note that there is `http://` here</span>
+    <span class="n">url</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">dns</span><span class="o">-</span><span class="n">entry</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">jupyterhub</span><span class="o">&gt;</span>
+
+<span class="n">ingress</span><span class="p">:</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+        <span class="c1"># But no `http://` here</span>
+        <span class="n">host</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">dns</span><span class="o">-</span><span class="n">entry</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">binder</span><span class="o">&gt;</span>
+
+<span class="n">jupyterhub</span><span class="p">:</span>
+    <span class="n">ingress</span><span class="p">:</span>
+        <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+        <span class="c1"># Or here</span>
+        <span class="n">host</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">dns</span><span class="o">-</span><span class="n">entry</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">jupyterhub</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Now that BinderHub is properly configured, it’s time to
+<a class="reference external" href="deploy.html">deploy BinderHub</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Set up BinderHub</a><ul>
+<li><a class="reference internal" href="#download-the-helm-chart-and-deployment-repo-for-binderhub">Download the Helm Chart and deployment repo for BinderHub</a></li>
+<li><a class="reference internal" href="#install-the-support-applications">Install the ‘support’ applications</a></li>
+<li><a class="reference internal" href="#configure-the-helmchart">Configure the helmchart</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="setup-dns.html" title="previous chapter">Set up DNS for your project</a></li>
+      <li>Next: <a href="deploy.html" title="next chapter">Deploy your Binder</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/setup-binderhub.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, The Jupyter Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/setup-binderhub.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to set up BinderHub &#8212; BinderHub 0.0.1 documentation</title>
+    <title>Getting started &#8212; BinderHub 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,6 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create your Kubernetes cluster" href="create-k8s-cluster.html" />
+    <link rel="prev" title="The BinderHub Architecture" href="diagram.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -41,31 +43,27 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="how-to-set-up-binderhub">
-<h1>How to set up BinderHub<a class="headerlink" href="#how-to-set-up-binderhub" title="Permalink to this headline">¶</a></h1>
-<p>It’s possible to deploy your own BinderHub instance in order to
-serve on-the-fly Jupyter notebooks and computing environments. In order
-to do this, you’ll need four things:</p>
-<p>1. Hardware that will run the BinderHub architecture and user instances
-1. A Kubernetes cluster that is running and to which we have API access
-1. A Docker registry that will host container images
-1. A JupyterHub that’s configured to serve single-use nodes.</p>
-<p>We’ll cover how to set up each of these below.</p>
-<div class="section" id="choose-your-hardware">
-<h2>Choose your hardware<a class="headerlink" href="#choose-your-hardware" title="Permalink to this headline">¶</a></h2>
-<p>First you’ll need hardware on which we’ll run JupyterHub. This is most
-commonly a cloud computing platform such as Google Cloud, Microsoft Azure,
-or Amazon EC2. You can also deploy BinderHub on your own hardware if you
-so choose. &lt;&lt;&lt;Add links to these deployments…maybe instructions to set
-up on their platforms as well…we should do this in z2jh and link here.&gt;&gt;&gt;.</p>
-</div>
-<div class="section" id="set-up-a-kubernetes-cluster">
-<h2>Set up a Kubernetes cluster<a class="headerlink" href="#set-up-a-kubernetes-cluster" title="Permalink to this headline">¶</a></h2>
-<p>This is also platform-dependent, though it is relatively straightforward
-to set up kubernetes on most cloud computing providers. For instructions
-on how to do this, see the <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/create-k8s-cluster.html">Zero to JupyterHub</a>
-tutorial on setting up Kubernetes.</p>
-<p>&lt;&lt;TODO: Configure JupyterHub to use binder&gt;&gt;</p>
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>The goal of BinderHub is to allow users to quickly create custom
+computing environments that can be accessed remotely (e.g., at a specific URL)
+by multiple users.</p>
+<p>This guide acts as an assistant to guide you through the process of setting up your BinderHub deployment. It helps you connect and configure
+the following things:</p>
+<ul class="simple">
+<li>A cloud provider such Google Cloud, Microsoft Azure, Amazon EC2, and others</li>
+<li>Kubernetes to manage resources on the cloud</li>
+<li>Helm to configure and control Kubernetes</li>
+<li>Docker to use containers that standardize computing environments</li>
+<li>A UI that users can access to specify GitHub repos they want built</li>
+<li>BinderHub to generate Docker images using the URL of a github repository</li>
+<li>A Docker registry (such as gcr.io) that hosts container images</li>
+<li>JupyterHub to deploy temporary containers for users</li>
+</ul>
+<p>To get started, start with the <a class="reference external" href="create-k8s-cluster.html">next item</a> the list on our main page.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you’d like to extend your jupyterhub setup, see the complementary guide <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io">Zero to JupyterHub</a>.</p>
 </div>
 </div>
 
@@ -77,26 +75,19 @@ tutorial on setting up Kubernetes.</p>
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">How to set up BinderHub</a><ul>
-<li><a class="reference internal" href="#choose-your-hardware">Choose your hardware</a></li>
-<li><a class="reference internal" href="#set-up-a-kubernetes-cluster">Set up a Kubernetes cluster</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
+            </a></p><div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="diagram.html" title="previous chapter">The BinderHub Architecture</a></li>
+      <li>Next: <a href="create-k8s-cluster.html" title="next chapter">Create your Kubernetes cluster</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/setup.rst.txt"
+      <li><a href="_sources/getting-started.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -122,7 +113,7 @@ tutorial on setting up Kubernetes.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/setup.rst.txt"
+      <a href="_sources/getting-started.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

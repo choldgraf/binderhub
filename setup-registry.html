@@ -1,0 +1,127 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Set up container registry &#8212; BinderHub 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Set up DNS for your project" href="setup-dns.html" />
+    <link rel="prev" title="Set up cluster tools" href="setup-cluster-tools.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="set-up-container-registry">
+<h1>Set up container registry<a class="headerlink" href="#set-up-container-registry" title="Permalink to this headline">¶</a></h1>
+<p>Binder will build Docker images out of GitHub repositories, and then
+registers those images with an online registry so that JupyterHub can
+serve user instances from that registry. You can use any registry that
+you like, though this guide covers how to properly configure the Google
+Container Registry (<code class="docutils literal"><span class="pre">gcr.io</span></code>).</p>
+<p>Doing this involves using the Container Registry user interface. The following
+steps will create an account with google cloud that has the authorization
+to push to google container registry:</p>
+<ol class="arabic simple">
+<li>Go to <code class="docutils literal"><span class="pre">console.cloud.google.com</span></code></li>
+<li>Make sure your project is selected</li>
+<li>Click <code class="docutils literal"><span class="pre">&lt;hamburger</span> <span class="pre">menu&gt;</span> <span class="pre">-&gt;</span> <span class="pre">IAM</span> <span class="pre">/</span> <span class="pre">Admin</span> <span class="pre">-&gt;</span> <span class="pre">Service</span> <span class="pre">Accounts</span></code></li>
+<li>Click <code class="docutils literal"><span class="pre">Create</span> <span class="pre">service</span> <span class="pre">account</span></code></li>
+<li>Give your account a descriptive name such as “BinderHub-registry”</li>
+<li>Click <code class="docutils literal"><span class="pre">Role</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">Admin</span></code></li>
+<li>Check <code class="docutils literal"><span class="pre">Furnish</span> <span class="pre">new</span> <span class="pre">private</span> <span class="pre">key</span></code></li>
+<li>Click <code class="docutils literal"><span class="pre">create</span></code></li>
+</ol>
+<p>This will download a JSON file to your computer. Inside is a structure
+that contains the password that can be used to push Docker images
+to <code class="docutils literal"><span class="pre">gcr.io</span></code>. Make sure to remember this password as you cannot generate
+a second one without re-doing the steps above.</p>
+<p>Now that our registry is set up, it’s time to <a class="reference external" href="setup-dns.html">set up DNS for our website</a>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="setup-cluster-tools.html" title="previous chapter">Set up cluster tools</a></li>
+      <li>Next: <a href="setup-dns.html" title="next chapter">Set up DNS for your project</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/setup-registry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, The Jupyter Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/setup-registry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
