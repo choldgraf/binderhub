@@ -1,35 +1,104 @@
+.. _create-cluster:
+
 Create your Kubernetes cluster
-------------------------------
-It is possible to run a Binder deployment on any cloud provider or on
-your own hardware. This guide will focus on using the Google cloud computing
-engine.
+==============================
 
-Set up Google cloud credentials
-===============================
-Before starting with Google Cloud, make sure that you've got an account
-with their cloud computing platform. You also need to authorize the components
-that we'll use to get Binder running.
+BinderHub is built on top of JupyterHub, which uses Kubernetes to manage
+user instances in the cloud. You'll first need to set up some cloud resources,
+and make sure that Kubernetes is running on them.
 
-<<<TODO>>>
+Setting up Kubernetes on `Google Cloud <https://cloud.google.com/>`_
+--------------------------------------------------------------------
 
-* Set up gcloud credentials
-* auth login
-* set zone
-* set project
-* enable API
-* enable container registry
-* Do::
+.. note::
 
-   gcloud auth application-default login
-          
-Create your cluster
-===================
-Next we'll tell Google to create a cluster that will run our code (and
-serve user instances). There are many ways to customize the cluster you'll
-use and you can see some examples of this below. To create your cluster, run the following command::
-    
-   gcloud container clusters create dev --num-nodes=1 --cluster-version=1.6.4\
-      --machine-type=n1-highmem-4 --disable-addons=HttpLoadBalancing\
-      --zone=us-central1-b
+   Currently, BinderHub only runs on Google Cloud. Support for other cloud
+   providers will be added in the future.
 
-Next, we need to `set up tools on the cluster <setup-cluster-tools.html>`_.
+`Google Container Engine <https://cloud.google.com/container-engine/>`_
+(confusingly abbreviated to GKE) is the simplest and most common way of setting
+up a Kubernetes Cluster. You may be able to receive `free credits
+<https://cloud.google.com/free/>`_ for trying it out. You will need to
+connect your credit card or other payment method to your google cloud account.
+
+1. Go to ``https://console.cloud.google.com`` and log in.
+
+2. Enable the `Container Engine API <https://console.cloud.google.com/apis/api/container.googleapis.com/overview>`_.
+
+3. Install and initialize the **gcloud command-line tools**. These tools send
+   commands to Google Cloud and lets you do things like create and delete
+   clusters.
+
+   - Go to the `gcloud downloads page <https://cloud.google.com/sdk/downloads>`_
+     to **download and install the gcloud SDK**.
+   - See the `gcloud documentation <https://cloud.google.com/sdk/>`_ for
+     more information on the gcloud SDK.
+   - Install ``kubectl``, which is a tool for controlling kubernetes. From
+     the terminal, enter:
+
+     .. code-block:: bash
+
+        gcloud components install kubectl
+
+4. Create a Kubernetes cluster on Google Cloud, by typing in the following
+   command:
+
+   .. code-block:: bash
+
+      gcloud container clusters create <YOUR_CLUSTER> \
+          --num-nodes=3 \
+          --machine-type=n1-standard-2 \
+          --zone=us-central1-b
+
+   where:
+
+   * ``--num-nodes`` specifies how many computers to spin up. The higher the
+     number, the greater the cost.
+   * ``--machine-type`` specifies the amount of CPU and RAM in each node. There
+     is a `variety of types <https://cloud.google.com/compute/docs/machine-types>`_
+     to choose from. Picking something appropriate here will have a large effect
+     on how much you pay - smaller machines restrict the max amount of RAM each
+     user can have access to but allow more fine-grained scaling, reducing cost.
+     The default (`n1-standard-2`) has 2CPUs and 7.5G of RAM each, and might not
+     be a good fit for all use cases!
+   * ``--zone`` specifies which data center to use. Pick something that is not
+     too far away from your users. You can find a list of them `here <https://cloud.google.com/compute/docs/regions-zones/regions-zones#available>`_.
+
+5. To test if your cluster is initialized, run:
+
+   .. code-block:: bash
+
+      kubectl get node
+
+   The response should list three running nodes.
+
+Next we'll install a few tools that are required for BinderHub to run properly.
+
+Installing Helm
+---------------
+
+Next, we'll install **Helm**. This allows us to control our Kubernetes cluster
+with a configuration file (called a Helm Chart). By using a **Helm Chart**, we
+can set up the cluster deployment to have the resources necessary for
+running BinderHub.
+
+Run the following commands to download and install helm::
+
+   curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+   helm init
+
+Install kubectl
+---------------
+
+Next we'll install ``kubectl`` (short for Kubernetes Control). This allows us
+to interact with the Kubernetes instance, and to get information about what
+nodes are running on our Kubernetes platform. Run the following command::
+
+   gcloud components install kubectl
+
+.. note::
+
+   If you're working from within Google Cloud Console, this will already be
+   installed.
+
+Now that our tools are set up, we need to :doc:`setup-registry`.

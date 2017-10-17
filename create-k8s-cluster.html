@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Create your Kubernetes cluster &#8212; BinderHub 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>2. Create your Kubernetes cluster &#8212; BinderHub 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/index.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.1',
+        VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,10 +21,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/js/scroll.js"></script>
+    <script type="text/javascript" src="_static/js/mobile-nav.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Set up cluster tools" href="setup-cluster-tools.html" />
-    <link rel="prev" title="Getting started" href="getting-started.html" />
+    <link rel="next" title="3. Set up the container registry" href="setup-registry.html" />
+    <link rel="prev" title="1. The BinderHub Architecture" href="diagram.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,117 +38,549 @@
   <body>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="create-your-kubernetes-cluster">
-<h1>Create your Kubernetes cluster<a class="headerlink" href="#create-your-kubernetes-cluster" title="Permalink to this headline">¶</a></h1>
-<p>It is possible to run a Binder deployment on any cloud provider or on
-your own hardware. This guide will focus on using the Google cloud computing
-engine.</p>
-<div class="section" id="set-up-google-cloud-credentials">
-<h2>Set up Google cloud credentials<a class="headerlink" href="#set-up-google-cloud-credentials" title="Permalink to this headline">¶</a></h2>
-<p>Before starting with Google Cloud, make sure that you’ve got an account
-with their cloud computing platform. You also need to authorize the components
-that we’ll use to get Binder running.</p>
-<p>&lt;&lt;&lt;TODO&gt;&gt;&gt;</p>
-<ul>
-<li><p class="first">Set up gcloud credentials</p>
-</li>
-<li><p class="first">auth login</p>
-</li>
-<li><p class="first">set zone</p>
-</li>
-<li><p class="first">set project</p>
-</li>
-<li><p class="first">enable API</p>
-</li>
-<li><p class="first">enable container registry</p>
-</li>
-<li><p class="first">Do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">auth</span> <span class="n">application</span><span class="o">-</span><span class="n">default</span> <span class="n">login</span>
-</pre></div>
-</div>
-</li>
-</ul>
-</div>
-<div class="section" id="create-your-cluster">
-<h2>Create your cluster<a class="headerlink" href="#create-your-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Next we’ll tell Google to create a cluster that will run our code (and
-serve user instances). There are many ways to customize the cluster you’ll
-use and you can see some examples of this below. To create your cluster, run the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">container</span> <span class="n">clusters</span> <span class="n">create</span> <span class="n">dev</span> <span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">nodes</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">cluster</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">1.6</span><span class="o">.</span><span class="mi">4</span>\
-   <span class="o">--</span><span class="n">machine</span><span class="o">-</span><span class="nb">type</span><span class="o">=</span><span class="n">n1</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">4</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">addons</span><span class="o">=</span><span class="n">HttpLoadBalancing</span>\
-   <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">central1</span><span class="o">-</span><span class="n">b</span>
-</pre></div>
-</div>
-<p>Next, we need to <a class="reference external" href="setup-cluster-tools.html">set up tools on the cluster</a>.</p>
-</div>
-</div>
 
-
-          </div>
+<nav class="navbar navbar-fixed-top" role="navigation" id="navbar" >
+        <div class="navbar-inner">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://jupyter.org/index.html">
+                  <img class="navbar-logo" src="_static/_images/nav_logo.svg" alt="Jupyter logo">
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                      
+                        
+                          <li>
+                            <a href="http://jupyter.org/install.html" class="tab">Install</a>
+                          </li>
+                        
+                      
+                    
+                      
+                        
+                          <li>
+                            <a href="http://jupyter.org/about.html" class="tab">About</a>
+                          </li>
+                        
+                      
+                    
+                      
+                        
+                          <li>
+                            <a href="http://jupyter.org/community.html" class="tab">Resources</a>
+                          </li>
+                        
+                      
+                    
+                      
+                        
+                          <li>
+                            <a href="index.html"  class="tab navbar-active">Documentation</a>
+                          </li>
+                        
+                      
+                    
+                      
+                           <li>
+                             <a href=https://nbviewer.jupyter.org class="tab" target="_blank">NBViewer</a>
+                           </li>
+                      
+                    
+                      
+                        
+                          <li>
+                            <a href="http://jupyter.org/widgets.html" class="tab">Widgets</a>
+                          </li>
+                        
+                      
+                    
+                      
+                           <li>
+                             <a href=https://blog.jupyter.org class="tab" target="_blank">Blog</a>
+                           </li>
+                      
+                    
+                      
+                        
+                          <li>
+                            <a href="http://jupyter.org/donate.html" class="tab">Donate</a>
+                          </li>
+                        
+                      
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
+        <div class="docs-breadcrumbs">
+            <div class="container">
+                <ul>
+                    <li class="docs-breadcrumb-item"><a href="https://jupyter.org"><img src="_static/_images/jupytertheme-images/breadcrumb-home.svg" / class="breadcrumb-home"></a><img src="_static/_images/jupytertheme-images/breadcrumb-separator.svg" class="breadcrumb-separator"/></li>
+                    
+                      <li class="docs-breadcrumb-item"><a href="index.html"> BinderHub</a><img src="_static/_images/jupytertheme-images/breadcrumb-separator.svg" class="breadcrumb-separator"/></li>
+                      
+                      <li class="docs-breadcrumb-item">2. Create your Kubernetes cluster</li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+  <div class="container">
+    <div class = "docs-mobile-nav">
+      
+
+<div>
+  
+  
+  <div class="mobile-nav-current-dropdown" data-toggle = "collapse" data-target = "#sectionList">
+    <div class="mobile-nav-current">
+      
+        <h3 class="mobile-nav-current-section"> BinderHub </h3>
+      
+      <h2 class="mobile-nav-current-page"> 2. Create your Kubernetes cluster </h2>
+    </div>
+    <div class="top-mobile-nav-expand">
+      <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+    </div>
+  </div>
+
+  <div id="sectionList" class="collapse">
+    <div class="dropdown">
+      
+      <div type = "button" class = "btn mobile-nav-section">
+        <h3 class="mobile-nav-header">
+          <a href="index.html">BinderHub</a>
+        </h3>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
-            </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Create your Kubernetes cluster</a><ul>
-<li><a class="reference internal" href="#set-up-google-cloud-credentials">Set up Google cloud credentials</a></li>
-<li><a class="reference internal" href="#create-your-cluster">Create your cluster</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting started</a></li>
-      <li>Next: <a href="setup-cluster-tools.html" title="next chapter">Set up cluster tools</a></li>
-  </ul></li>
-</ul>
+    </div>
+    
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn mobile-nav-section">
+              <h3 class="mobile-nav-header">
+                <a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a>
+
+              </h3>
+            </div>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading2">
+              <h3 class="mobile-nav-header"> 2. Create your Kubernetes cluster</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
+            </div>
+          
+          
+        
+          
+          
+            <ul class = "heading2 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="current reference internal" href="#">2. Create your Kubernetes cluster</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a>
+<li class="toctree-l2"><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a>
+<li class="toctree-l2"><a class="reference internal" href="#install-kubectl">2.3. Install kubectl</a>
+
+
+
+            </ul>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn mobile-nav-section">
+              <h3 class="mobile-nav-header">
+                <a class="reference internal" href="setup-registry.html">3. Set up the container registry</a>
+
+              </h3>
+            </div>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading4">
+              <h3 class="mobile-nav-header"> 4. Set up BinderHub</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
+            </div>
+          
+          
+        
+          
+          
+            <ul class = "heading4 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="reference internal" href="setup-binderhub.html">4. Set up BinderHub</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#installing-the-helm-chart">4.1. Installing the Helm Chart</a>
+
+
+
+            </ul>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading5">
+              <h3 class="mobile-nav-header"> 5. Debugging BinderHub</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
+            </div>
+          
+          
+        
+          
+          
+            <ul class = "heading5 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="reference internal" href="debug.html">5. Debugging BinderHub</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="debug.html#changing-the-helm-chart">5.1. Changing the helm chart</a>
+
+
+
+            </ul>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading6">
+              <h3 class="mobile-nav-header"> 6. Tear down your Binder deployment</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
+            </div>
+          
+          
+        
+          
+          
+            <ul class = "heading6 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="reference internal" href="turn-off.html">6. Tear down your Binder deployment</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="turn-off.html#contracting-the-size-of-your-cluster">6.1. Contracting the size of your cluster</a>
+<li class="toctree-l2"><a class="reference internal" href="turn-off.html#deleting-the-cluster">6.2. Deleting the cluster</a>
+
+
+
+            </ul>
+          
+        
+      </div>
+    
+      
+      
+      <div class="dropdown">
+        
+        
+          
+          
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading7">
+              <h3 class="mobile-nav-header"> 7. Configuration and Source Code Reference</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
+            </div>
+          
+          
+        
+          
+          
+            <ul class = "heading7 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="reference internal" href="api/api-index.html">7. Configuration and Source Code Reference</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="api/app.html">7.1. app</a>
+<li class="toctree-l2"><a class="reference internal" href="api/build.html">7.2. build</a>
+<li class="toctree-l2"><a class="reference internal" href="api/builder.html">7.3. builder</a>
+<li class="toctree-l2"><a class="reference internal" href="api/main.html">7.4. main</a>
+<li class="toctree-l2"><a class="reference internal" href="api/redirect.html">7.5. redirect</a>
+<li class="toctree-l2"><a class="reference internal" href="api/registry.html">7.6. registry</a>
+<li class="toctree-l2"><a class="reference internal" href="api/repoproviders.html">7.7. repoproviders</a>
+
+
+
+
+            </ul>
+          
+        
+      </div>
+    
+  </div>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/create-k8s-cluster.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+    </div>
+    <div class="row">
+      <div class="docs-desktop-nav">
+      <div class="col-sm-4 col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><h1>
+  <a href="index.html">BinderHub</a>
+</h1>
+
+<div id="searchbox" role="search">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <div>
+        <input type="text" placeholder= "Search" class="docs-search-input" name="q" />
+        <input type="submit" class="docs-search-submit" value="" />
+      </div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Create your Kubernetes cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-kubectl">2.3. Install kubectl</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-registry.html">3. Set up the container registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">4. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">5. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">6. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/api-index.html">7. Configuration and Source Code Reference</a></li>
+</ul>
+
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, The Jupyter Team.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/create-k8s-cluster.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
+      </div>
+      <div class="col-sm-8 col-md-9 content">
+        
+  <div class="section" id="create-your-kubernetes-cluster">
+<span id="create-cluster"></span><h1>2. Create your Kubernetes cluster<a class="headerlink" href="#create-your-kubernetes-cluster" title="Permalink to this headline">¶</a></h1>
+<p>BinderHub is built on top of JupyterHub, which uses Kubernetes to manage
+user instances in the cloud. You’ll first need to set up some cloud resources,
+and make sure that Kubernetes is running on them.</p>
+<div class="section" id="setting-up-kubernetes-on-google-cloud">
+<h2>2.1. Setting up Kubernetes on <a class="reference external" href="https://cloud.google.com/">Google Cloud</a><a class="headerlink" href="#setting-up-kubernetes-on-google-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, BinderHub only runs on Google Cloud. Support for other cloud
+providers will be added in the future.</p>
+</div>
+<p><a class="reference external" href="https://cloud.google.com/container-engine/">Google Container Engine</a>
+(confusingly abbreviated to GKE) is the simplest and most common way of setting
+up a Kubernetes Cluster. You may be able to receive <a class="reference external" href="https://cloud.google.com/free/">free credits</a> for trying it out. You will need to
+connect your credit card or other payment method to your google cloud account.</p>
+<ol class="arabic">
+<li><p class="first">Go to <code class="docutils literal"><span class="pre">https://console.cloud.google.com</span></code> and log in.</p>
+</li>
+<li><p class="first">Enable the <a class="reference external" href="https://console.cloud.google.com/apis/api/container.googleapis.com/overview">Container Engine API</a>.</p>
+</li>
+<li><p class="first">Install and initialize the <strong>gcloud command-line tools</strong>. These tools send
+commands to Google Cloud and lets you do things like create and delete
+clusters.</p>
+<ul>
+<li><p class="first">Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud downloads page</a>
+to <strong>download and install the gcloud SDK</strong>.</p>
+</li>
+<li><p class="first">See the <a class="reference external" href="https://cloud.google.com/sdk/">gcloud documentation</a> for
+more information on the gcloud SDK.</p>
+</li>
+<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
+the terminal, enter:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing in the following
+command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR_CLUSTER&gt; <span class="se">\</span>
+    --num-nodes<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
+    --machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
+    --zone<span class="o">=</span>us-central1-b
+</pre></div>
+</div>
+<p>where:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--num-nodes</span></code> specifies how many computers to spin up. The higher the
+number, the greater the cost.</li>
+<li><code class="docutils literal"><span class="pre">--machine-type</span></code> specifies the amount of CPU and RAM in each node. There
+is a <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">variety of types</a>
+to choose from. Picking something appropriate here will have a large effect
+on how much you pay - smaller machines restrict the max amount of RAM each
+user can have access to but allow more fine-grained scaling, reducing cost.
+The default (<code class="docutils literal"><span class="pre">n1-standard-2</span></code>) has 2CPUs and 7.5G of RAM each, and might not
+be a good fit for all use cases!</li>
+<li><code class="docutils literal"><span class="pre">--zone</span></code> specifies which data center to use. Pick something that is not
+too far away from your users. You can find a list of them <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/regions-zones#available">here</a>.</li>
+</ul>
+</li>
+<li><p class="first">To test if your cluster is initialized, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl get node
+</pre></div>
+</div>
+<p>The response should list three running nodes.</p>
+</li>
+</ol>
+<p>Next we’ll install a few tools that are required for BinderHub to run properly.</p>
+</div>
+<div class="section" id="installing-helm">
+<h2>2.2. Installing Helm<a class="headerlink" href="#installing-helm" title="Permalink to this headline">¶</a></h2>
+<p>Next, we’ll install <strong>Helm</strong>. This allows us to control our Kubernetes cluster
+with a configuration file (called a Helm Chart). By using a <strong>Helm Chart</strong>, we
+can set up the cluster deployment to have the resources necessary for
+running BinderHub.</p>
+<p>Run the following commands to download and install helm:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">|</span> <span class="n">bash</span>
+<span class="n">helm</span> <span class="n">init</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-kubectl">
+<h2>2.3. Install kubectl<a class="headerlink" href="#install-kubectl" title="Permalink to this headline">¶</a></h2>
+<p>Next we’ll install <code class="docutils literal"><span class="pre">kubectl</span></code> (short for Kubernetes Control). This allows us
+to interact with the Kubernetes instance, and to get information about what
+nodes are running on our Kubernetes platform. Run the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">components</span> <span class="n">install</span> <span class="n">kubectl</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you’re working from within Google Cloud Console, this will already be
+installed.</p>
+</div>
+<p>Now that our tools are set up, we need to <a class="reference internal" href="setup-registry.html"><span class="doc">Set up the container registry</span></a>.</p>
+</div>
+</div>
 
-    
 
-    
+      </div>
+        
+    </div>
+  </div>
+
+  
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+  <script type= "text/javascript">
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+  </script>
+
+
+
+
+
+
+<footer>
+    <div class="custom-footer" role="navigation">
+        <div class="container">
+            <div class="navbar-text">
+                <ul class="footer-text">
+                    <li><a href="http://jupyter.org/index.html">Home</a></li>
+                    
+                      
+                           <li><a href="http://jupyter.org/install.html">Install</a></li>
+                      
+                    
+                      
+                           <li><a href="http://jupyter.org/about.html">About</a></li>
+                      
+                    
+                      
+                           <li><a href="http://jupyter.org/community.html">Resources</a></li>
+                      
+                    
+                      
+                           <li><a href="http://jupyter.org/">Documentation</a></li>
+                      
+                    
+                      
+                           <li><a href="https://nbviewer.jupyter.org" target="_blank">NBViewer</a></li>
+                      
+                    
+                      
+                           <li><a href="http://jupyter.org/widgets.html">Widgets</a></li>
+                      
+                    
+                      
+                           <li><a href="https://blog.jupyter.org" target="_blank">Blog</a></li>
+                      
+                    
+                      
+                           <li><a href="http://jupyter.org/donate.html">Donate</a></li>
+                      
+                    
+                    <p>
+                       Copyright &#169; 2017, The Jupyter Team - 
+                      Last updated on Tue, Oct 17, 2017
+                    </p>
+                </ul>
+            </div>
+            <div class="follow">
+                <a class="github-button" href="https://github.com/jupyter" aria-label="Follow @jupyter on GitHub">Follow @jupyter</a>
+                <br><a href="https://twitter.com/ProjectJupyter" class="twitter-follow-button" data-show-count="false">Follow @ProjectJupyter</a>
+            </div>
+        </div>
+    </div>
+</footer>
   </body>
 </html>
