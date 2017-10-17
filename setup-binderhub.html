@@ -242,12 +242,32 @@
         
           
           
-            <div type = "button" class = "btn mobile-nav-section">
-              <h3 class="mobile-nav-header">
-                <a class="current reference internal" href="#">4. Set up BinderHub</a>
-
-              </h3>
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading4">
+              <h3 class="mobile-nav-header"> 4. Set up BinderHub</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
             </div>
+          
+          
+        
+          
+          
+            <ul class = "heading4 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="current reference internal" href="#">4. Set up BinderHub</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-helm-chart">4.1. Configure the helm chart</a>
+<li class="toctree-l2"><a class="reference internal" href="#configure-secret-yaml">4.2. Configure <code class="docutils literal"><span class="pre">secret.yaml</span></code></a>
+<li class="toctree-l2"><a class="reference internal" href="#configure-config-yaml">4.3. Configure <code class="docutils literal"><span class="pre">config.yaml</span></code></a>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-the-helm-chart">4.4. Deploy the helm chart</a>
+<li class="toctree-l2"><a class="reference internal" href="#connect-binderhub-and-jupyterhub">4.5. Connect BinderHub and JupyterHub</a>
+<li class="toctree-l2"><a class="reference internal" href="#try-out-your-binderhub-deployment">4.6. Try out your BinderHub Deployment</a>
+
+
+
+            </ul>
           
         
       </div>
@@ -381,7 +401,15 @@
 <li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="create-k8s-cluster.html">2. Create your Kubernetes cluster</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup-registry.html">3. Set up the container registry</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Set up BinderHub</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Set up BinderHub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-helm-chart">4.1. Configure the helm chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-secret-yaml">4.2. Configure <code class="docutils literal"><span class="pre">secret.yaml</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-config-yaml">4.3. Configure <code class="docutils literal"><span class="pre">config.yaml</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-the-helm-chart">4.4. Deploy the helm chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connect-binderhub-and-jupyterhub">4.5. Connect BinderHub and JupyterHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#try-out-your-binderhub-deployment">4.6. Try out your BinderHub Deployment</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">5. Debugging BinderHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="turn-off.html">6. Tear down your Binder deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/api-index.html">7. Configuration and Source Code Reference</a></li>
@@ -400,8 +428,8 @@ deployment. If you’re curious about what Helm Charts are and how they’re
 used here, see the <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/tools.html#helm">Zero to JupyterHub guide</a>.</p>
 <p>Below we’ll cover how to configure your Helm Chart, and how to create your
 BinderHub deployment.</p>
-<ol class="arabic">
-<li><p class="first">Collect information we’ll use to configure the helm chart.</p>
+<div class="section" id="configure-the-helm-chart">
+<h2>4.1. Configure the helm chart<a class="headerlink" href="#configure-the-helm-chart" title="Permalink to this headline">¶</a></h2>
 <p>To configure the Helm Chart we’ll need to generate and insert a few pieces of
 information.</p>
 <p>The first is the content of the JSON file created when we set up
@@ -418,8 +446,9 @@ tokens by running the following commands then copying the outputs.:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This command is run <strong>twice</strong> because we need two different tokens.</p>
 </div>
-</li>
-<li><p class="first">Configure <code class="docutils literal"><span class="pre">secret.yaml</span></code>.</p>
+</div>
+<div class="section" id="configure-secret-yaml">
+<h2>4.2. Configure <code class="docutils literal"><span class="pre">secret.yaml</span></code><a class="headerlink" href="#configure-secret-yaml" title="Permalink to this headline">¶</a></h2>
 <p>Create a file called <code class="docutils literal"><span class="pre">secret.yaml</span></code>. In it, put the following code:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyterhub</span><span class="p">:</span>
     <span class="n">hub</span><span class="p">:</span>
@@ -446,8 +475,9 @@ tab level.</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">Don’t forget the <code class="docutils literal"><span class="pre">|</span></code> after the <code class="docutils literal"><span class="pre">password:</span></code> label.</p>
 </div>
-</li>
-<li><p class="first">Configure <code class="docutils literal"><span class="pre">config.yaml</span></code>.</p>
+</div>
+<div class="section" id="configure-config-yaml">
+<h2>4.3. Configure <code class="docutils literal"><span class="pre">config.yaml</span></code><a class="headerlink" href="#configure-config-yaml" title="Permalink to this headline">¶</a></h2>
 <p>Create a file called <code class="docutils literal"><span class="pre">config.yaml</span></code>. In it, put the following code:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="p">:</span>
   <span class="c1"># Note this is project *ID*, not just project</span>
@@ -465,8 +495,9 @@ tab level.</p>
          <span class="n">enabled</span><span class="p">:</span> <span class="n">false</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Deploy the helm chart.</p>
+</div>
+<div class="section" id="deploy-the-helm-chart">
+<h2>4.4. Deploy the helm chart<a class="headerlink" href="#deploy-the-helm-chart" title="Permalink to this headline">¶</a></h2>
 <p>First grab the latest helm chart for BinderHub.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">repo</span> <span class="n">add</span> <span class="n">jupyterhub</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">jupyterhub</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">helm</span><span class="o">-</span><span class="n">chart</span>
 <span class="n">helm</span> <span class="n">repo</span> <span class="n">update</span>
@@ -491,8 +522,9 @@ recommend something descriptive and short.</p>
 able to communicate with one another yet. We’ll fix this in the next
 step. Wait a few moments before moving on as the resources may take a
 few minutes to be set up.</p>
-</li>
-<li><p class="first">Configure the BinderHub to point to the JupyterHub</p>
+</div>
+<div class="section" id="connect-binderhub-and-jupyterhub">
+<h2>4.5. Connect BinderHub and JupyterHub<a class="headerlink" href="#connect-binderhub-and-jupyterhub" title="Permalink to this headline">¶</a></h2>
 <p>In the google console, run the following command to print the IP address
 of the JupyterHub we just deployed.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">binder</span> <span class="n">get</span> <span class="n">svc</span> <span class="n">proxy</span><span class="o">-</span><span class="n">public</span>
@@ -508,16 +540,21 @@ JupyterHub. Now, add the following lines to <code class="docutils literal"><span
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">upgrade</span> <span class="n">binder</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">789e30</span><span class="n">a</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-<p>Finally, we’ll find the IP address of the BinderHub deployment. Run the following
-command:</p>
+</div>
+<div class="section" id="try-out-your-binderhub-deployment">
+<h2>4.6. Try out your BinderHub Deployment<a class="headerlink" href="#try-out-your-binderhub-deployment" title="Permalink to this headline">¶</a></h2>
+<p>If the <code class="docutils literal"><span class="pre">helm</span> <span class="pre">upgrade</span></code> command above succeeds, it’s time to try out your
+BinderHub deployment! First we’ll find the IP address of the BinderHub
+deployment. Run the following command:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">binder</span> <span class="n">get</span> <span class="n">svc</span> <span class="n">binder</span>
 </pre></div>
 </div>
-<p>Note the IP address in <code class="docutils literal"><span class="pre">EXTERNAL-IP</span></code>. This is your BinderHub IP address.</p>
-</li>
-</ol>
+<p>Note the IP address in <code class="docutils literal"><span class="pre">EXTERNAL-IP</span></code>. This is your BinderHub IP address.
+Type that IP address in your browser and a BinderHub should be waiting there
+for you.</p>
 <p>You should now have a functioning BinderHub at the above IP address. For next
 steps, see <a class="reference internal" href="debug.html"><span class="doc">Debugging BinderHub</span></a> and <a class="reference internal" href="turn-off.html"><span class="doc">Tear down your Binder deployment</span></a>.</p>
+</div>
 </div>
 
 
