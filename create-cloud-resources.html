@@ -1,12 +1,11 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Index &#8212; BinderHub 0.1.0 documentation</title>
+    <title>2. Create your cloud resources &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/index.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -25,8 +24,10 @@
     <script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/js/scroll.js"></script>
     <script type="text/javascript" src="_static/js/mobile-nav.js"></script>
-    <link rel="index" title="Index" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Set up BinderHub" href="setup-binderhub.html" />
+    <link rel="prev" title="1. The BinderHub Architecture" href="diagram.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -129,7 +130,7 @@
                     
                       <li class="docs-breadcrumb-item"><a href="index.html"> BinderHub</a><img src="_static/_images/jupytertheme-images/breadcrumb-separator.svg" class="breadcrumb-separator"/></li>
                       
-                      <li class="docs-breadcrumb-item">Index</li>
+                      <li class="docs-breadcrumb-item">2. Create your cloud resources</li>
                     
                 </ul>
             </div>
@@ -148,7 +149,7 @@
       
         <h3 class="mobile-nav-current-section"> BinderHub </h3>
       
-      <h2 class="mobile-nav-current-page"> Index </h2>
+      <h2 class="mobile-nav-current-page"> 2. Create your cloud resources </h2>
     </div>
     <div class="top-mobile-nav-expand">
       <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
@@ -203,13 +204,13 @@
           
             <ul class = "heading2 collapse mobile-nav-items">
               <li class = "toctree-l2">
-                <a class="reference internal" href="create-cloud-resources.html">2. Create your cloud resources</a>
+                <a class="current reference internal" href="#">2. Create your cloud resources</a>
               </li>
               
-<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a>
-<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#installing-helm">2.2. Installing Helm</a>
-<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#install-kubectl">2.3. Install kubectl</a>
-<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#set-up-the-container-registry">2.4. Set up the container registry</a>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a>
+<li class="toctree-l2"><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a>
+<li class="toctree-l2"><a class="reference internal" href="#install-kubectl">2.3. Install kubectl</a>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-the-container-registry">2.4. Set up the container registry</a>
 
 
 
@@ -380,9 +381,15 @@
     </form>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="create-cloud-resources.html">2. Create your cloud resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Create your cloud resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-kubectl">2.3. Install kubectl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-the-container-registry">2.4. Set up the container registry</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">4. Debugging BinderHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
@@ -395,158 +402,140 @@
       </div>
       <div class="col-sm-8 col-md-9 content">
         
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#K"><strong>K</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- 
+  <div class="section" id="create-your-cloud-resources">
+<span id="create-cluster"></span><h1>2. Create your cloud resources<a class="headerlink" href="#create-your-cloud-resources" title="Permalink to this headline">¶</a></h1>
+<p>BinderHub is built on top of JupyterHub, which uses Kubernetes to manage
+user instances in the cloud. You’ll first need to set up some cloud resources,
+and make sure that Kubernetes is running on them, and configure them to work
+properly with one another.</p>
+<div class="section" id="setting-up-kubernetes-on-google-cloud">
+<h2>2.1. Setting up Kubernetes on <a class="reference external" href="https://cloud.google.com/">Google Cloud</a><a class="headerlink" href="#setting-up-kubernetes-on-google-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, BinderHub only runs on Google Cloud. Support for other cloud
+providers will be added in the future.</p>
 </div>
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/app.html#binderhub.app.BinderHub">BinderHub (class in binderhub.app)</a>
+<p><a class="reference external" href="https://cloud.google.com/container-engine/">Google Container Engine</a>
+(confusingly abbreviated to GKE) is the simplest and most common way of setting
+up a Kubernetes Cluster. You may be able to receive <a class="reference external" href="https://cloud.google.com/free/">free credits</a> for trying it out. You will need to
+connect your credit card or other payment method to your google cloud account.</p>
+<ol class="arabic">
+<li><p class="first">Go to <code class="docutils literal"><span class="pre">https://console.cloud.google.com</span></code> and log in.</p>
 </li>
-      <li><a href="api/app.html#module-binderhub.app">binderhub.app (module)</a>
+<li><p class="first">Enable the <a class="reference external" href="https://console.cloud.google.com/apis/api/container.googleapis.com/overview">Container Engine API</a>.</p>
 </li>
-      <li><a href="api/build.html#module-binderhub.build">binderhub.build (module)</a>
+<li><p class="first">Install and initialize the <strong>gcloud command-line tools</strong>. These tools send
+commands to Google Cloud and lets you do things like create and delete
+clusters.</p>
+<ul>
+<li><p class="first">Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud downloads page</a>
+to <strong>download and install the gcloud SDK</strong>.</p>
 </li>
-      <li><a href="api/builder.html#module-binderhub.builder">binderhub.builder (module)</a>
+<li><p class="first">See the <a class="reference external" href="https://cloud.google.com/sdk/">gcloud documentation</a> for
+more information on the gcloud SDK.</p>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#module-binderhub.main">binderhub.main (module)</a>
+<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
+the terminal, enter:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
+</pre></div>
+</div>
 </li>
-      <li><a href="api/registry.html#module-binderhub.registry">binderhub.registry (module)</a>
+</ul>
 </li>
-      <li><a href="api/repoproviders.html#module-binderhub.repoproviders">binderhub.repoproviders (module)</a>
+<li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing in the following
+command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR_CLUSTER&gt; <span class="se">\</span>
+    --num-nodes<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
+    --machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
+    --zone<span class="o">=</span>us-central1-b
+</pre></div>
+</div>
+<p>where:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--num-nodes</span></code> specifies how many computers to spin up. The higher the
+number, the greater the cost.</li>
+<li><code class="docutils literal"><span class="pre">--machine-type</span></code> specifies the amount of CPU and RAM in each node. There
+is a <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">variety of types</a>
+to choose from. Picking something appropriate here will have a large effect
+on how much you pay - smaller machines restrict the max amount of RAM each
+user can have access to but allow more fine-grained scaling, reducing cost.
+The default (<code class="docutils literal"><span class="pre">n1-standard-2</span></code>) has 2CPUs and 7.5G of RAM each, and might not
+be a good fit for all use cases!</li>
+<li><code class="docutils literal"><span class="pre">--zone</span></code> specifies which data center to use. Pick something that is not
+too far away from your users. You can find a list of them <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/regions-zones#available">here</a>.</li>
+</ul>
 </li>
-      <li><a href="api/build.html#binderhub.build.Build">Build (class in binderhub.build)</a>
+<li><p class="first">To test if your cluster is initialized, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl get node
+</pre></div>
+</div>
+<p>The response should list three running nodes.</p>
 </li>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler">BuildHandler (class in binderhub.builder)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/build.html#binderhub.build.Build.cleanup">cleanup() (binderhub.build.Build method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/registry.html#binderhub.registry.DockerRegistry">DockerRegistry (class in binderhub.registry)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler.get">get() (binderhub.builder.BuildHandler method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/build.html#binderhub.build.Build.get_cmd">get_cmd() (binderhub.build.Build method)</a>
-</li>
-      <li><a href="api/repoproviders.html#binderhub.repoproviders.GitHubRepoProvider">GitHubRepoProvider (class in binderhub.repoproviders)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/app.html#binderhub.app.BinderHub.initialize">initialize() (binderhub.app.BinderHub method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="K">K</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler.keep_alive">keep_alive() (binderhub.builder.BuildHandler method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler.launch">launch() (binderhub.builder.BuildHandler method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#binderhub.main.LegacyRedirectHandler">LegacyRedirectHandler (class in binderhub.main)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#binderhub.main.MainHandler">MainHandler (class in binderhub.main)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler.on_finish">on_finish() (binderhub.builder.BuildHandler method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#binderhub.main.ParameterizedMainHandler">ParameterizedMainHandler (class in binderhub.main)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/build.html#binderhub.build.Build.progress">progress() (binderhub.build.Build method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/repoproviders.html#binderhub.repoproviders.RepoProvider">RepoProvider (class in binderhub.repoproviders)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/builder.html#binderhub.builder.BuildHandler.send_error">send_error() (binderhub.builder.BuildHandler method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/build.html#binderhub.build.Build.stream_logs">stream_logs() (binderhub.build.Build method)</a>
-</li>
-      <li><a href="api/build.html#binderhub.build.Build.submit">submit() (binderhub.build.Build method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
+</ol>
+<p>Next we’ll install a few tools that are required for BinderHub to run properly.</p>
+</div>
+<div class="section" id="installing-helm">
+<h2>2.2. Installing Helm<a class="headerlink" href="#installing-helm" title="Permalink to this headline">¶</a></h2>
+<p>Next, we’ll install <strong>Helm</strong>. This allows us to control our Kubernetes cluster
+with a configuration file (called a Helm Chart). By using a <strong>Helm Chart</strong>, we
+can set up the cluster deployment to have the resources necessary for
+running BinderHub.</p>
+<p>Run the following commands to download and install helm:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">|</span> <span class="n">bash</span>
+<span class="n">helm</span> <span class="n">init</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-kubectl">
+<h2>2.3. Install kubectl<a class="headerlink" href="#install-kubectl" title="Permalink to this headline">¶</a></h2>
+<p>Next we’ll install <code class="docutils literal"><span class="pre">kubectl</span></code> (short for Kubernetes Control). This allows us
+to interact with the Kubernetes instance, and to get information about what
+nodes are running on our Kubernetes platform. Run the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">components</span> <span class="n">install</span> <span class="n">kubectl</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you’re working from within Google Cloud Console, this will already be
+installed.</p>
+</div>
+</div>
+<div class="section" id="set-up-the-container-registry">
+<span id="setup-registry"></span><h2>2.4. Set up the container registry<a class="headerlink" href="#set-up-the-container-registry" title="Permalink to this headline">¶</a></h2>
+<p>BinderHub will build Docker images out of GitHub repositories, and then
+register those images with an online registry so that JupyterHub can
+serve user instances from that registry. You can use any registry that
+you like, though this guide covers how to properly configure the <strong>Google
+Container Registry</strong> (<code class="docutils literal"><span class="pre">gcr.io</span></code>).</p>
+<p>Doing this involves using the Container Registry user interface in google
+cloud. The following steps will create an account with google cloud that has
+the authorization to push to google container registry:</p>
+<ol class="arabic simple">
+<li>Go to <a class="reference external" href="http://console.cloud.google.com">console.cloud.google.com</a></li>
+<li>Make sure your project is selected</li>
+<li>Click <code class="docutils literal"><span class="pre">&lt;hamburger</span> <span class="pre">menu&gt;</span> <span class="pre">-&gt;</span> <span class="pre">IAM</span> <span class="pre">&amp;</span> <span class="pre">Admin</span> <span class="pre">-&gt;</span> <span class="pre">Service</span> <span class="pre">Accounts</span></code> menu option</li>
+<li>Click <strong>Create service account</strong></li>
+<li>Give your account a descriptive name such as “BinderHub-registry”</li>
+<li>Click <code class="docutils literal"><span class="pre">Role</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">Admin</span></code> menu option</li>
+<li>Check <strong>Furnish new private key</strong></li>
+<li>Click <strong>Create</strong></li>
+</ol>
+<p>These steps will download a <strong>JSON file</strong> to your computer. The JSON file
+contains the password that can be used to push Docker images to the <code class="docutils literal"><span class="pre">gcr.io</span></code>
+registry.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don’t share the contents of this JSON file with anyone. It can be used to
+gain access to your google cloud account!</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Make sure to store this JSON file as you cannot generate a second one
+without re-doing the steps above.</p>
+</div>
+<p>Now that our cloud resources are set up, it’s time to <a class="reference internal" href="setup-binderhub.html"><span class="doc">Set up BinderHub</span></a>.</p>
+</div>
+</div>
 
 
       </div>

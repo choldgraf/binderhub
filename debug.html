@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>5. Debugging BinderHub &#8212; BinderHub 0.1.0 documentation</title>
+    <title>4. Debugging BinderHub &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/index.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/js/mobile-nav.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Tear down your Binder deployment" href="turn-off.html" />
-    <link rel="prev" title="4. Set up BinderHub" href="setup-binderhub.html" />
+    <link rel="next" title="5. Tear down your Binder deployment" href="turn-off.html" />
+    <link rel="prev" title="3. Set up BinderHub" href="setup-binderhub.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -130,7 +130,7 @@
                     
                       <li class="docs-breadcrumb-item"><a href="index.html"> BinderHub</a><img src="_static/_images/jupytertheme-images/breadcrumb-separator.svg" class="breadcrumb-separator"/></li>
                       
-                      <li class="docs-breadcrumb-item">5. Debugging BinderHub</li>
+                      <li class="docs-breadcrumb-item">4. Debugging BinderHub</li>
                     
                 </ul>
             </div>
@@ -149,7 +149,7 @@
       
         <h3 class="mobile-nav-current-section"> BinderHub </h3>
       
-      <h2 class="mobile-nav-current-page"> 5. Debugging BinderHub </h2>
+      <h2 class="mobile-nav-current-page"> 4. Debugging BinderHub </h2>
     </div>
     <div class="top-mobile-nav-expand">
       <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
@@ -204,12 +204,13 @@
           
             <ul class = "heading2 collapse mobile-nav-items">
               <li class = "toctree-l2">
-                <a class="reference internal" href="create-k8s-cluster.html">2. Create your Kubernetes cluster</a>
+                <a class="reference internal" href="create-cloud-resources.html">2. Create your Kubernetes cluster</a>
               </li>
               
-<li class="toctree-l2"><a class="reference internal" href="create-k8s-cluster.html#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a>
-<li class="toctree-l2"><a class="reference internal" href="create-k8s-cluster.html#installing-helm">2.2. Installing Helm</a>
-<li class="toctree-l2"><a class="reference internal" href="create-k8s-cluster.html#install-kubectl">2.3. Install kubectl</a>
+<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a>
+<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#installing-helm">2.2. Installing Helm</a>
+<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#install-kubectl">2.3. Install kubectl</a>
+<li class="toctree-l2"><a class="reference internal" href="create-cloud-resources.html#set-up-the-container-registry">2.4. Set up the container registry</a>
 
 
 
@@ -225,12 +226,32 @@
         
           
           
-            <div type = "button" class = "btn mobile-nav-section">
-              <h3 class="mobile-nav-header">
-                <a class="reference internal" href="setup-registry.html">3. Set up the container registry</a>
-
-              </h3>
+            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading3">
+              <h3 class="mobile-nav-header"> 3. Set up BinderHub</h3>
+              <div class="mobile-nav-expand">
+                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
+              </div>
             </div>
+          
+          
+        
+          
+          
+            <ul class = "heading3 collapse mobile-nav-items">
+              <li class = "toctree-l2">
+                <a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a>
+              </li>
+              
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#configure-the-helm-chart">3.1. Configure the helm chart</a>
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#configure-secret-yaml">3.2. Configure <code class="docutils literal"><span class="pre">secret.yaml</span></code></a>
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#configure-config-yaml">3.3. Configure <code class="docutils literal"><span class="pre">config.yaml</span></code></a>
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#deploy-the-helm-chart">3.4. Deploy the helm chart</a>
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#connect-binderhub-and-jupyterhub">3.5. Connect BinderHub and JupyterHub</a>
+<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#try-out-your-binderhub-deployment">3.6. Try out your BinderHub Deployment</a>
+
+
+
+            </ul>
           
         
       </div>
@@ -243,7 +264,7 @@
           
           
             <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading4">
-              <h3 class="mobile-nav-header"> 4. Set up BinderHub</h3>
+              <h3 class="mobile-nav-header"> 4. Debugging BinderHub</h3>
               <div class="mobile-nav-expand">
                 <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
               </div>
@@ -255,10 +276,10 @@
           
             <ul class = "heading4 collapse mobile-nav-items">
               <li class = "toctree-l2">
-                <a class="reference internal" href="setup-binderhub.html">4. Set up BinderHub</a>
+                <a class="current reference internal" href="#">4. Debugging BinderHub</a>
               </li>
               
-<li class="toctree-l2"><a class="reference internal" href="setup-binderhub.html#installing-the-helm-chart">4.1. Installing the Helm Chart</a>
+<li class="toctree-l2"><a class="reference internal" href="#changing-the-helm-chart">4.1. Changing the helm chart</a>
 
 
 
@@ -275,7 +296,7 @@
           
           
             <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading5">
-              <h3 class="mobile-nav-header"> 5. Debugging BinderHub</h3>
+              <h3 class="mobile-nav-header"> 5. Tear down your Binder deployment</h3>
               <div class="mobile-nav-expand">
                 <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
               </div>
@@ -287,10 +308,11 @@
           
             <ul class = "heading5 collapse mobile-nav-items">
               <li class = "toctree-l2">
-                <a class="current reference internal" href="#">5. Debugging BinderHub</a>
+                <a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a>
               </li>
               
-<li class="toctree-l2"><a class="reference internal" href="#changing-the-helm-chart">5.1. Changing the helm chart</a>
+<li class="toctree-l2"><a class="reference internal" href="turn-off.html#contracting-the-size-of-your-cluster">5.1. Contracting the size of your cluster</a>
+<li class="toctree-l2"><a class="reference internal" href="turn-off.html#deleting-the-cluster">5.2. Deleting the cluster</a>
 
 
 
@@ -307,7 +329,7 @@
           
           
             <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading6">
-              <h3 class="mobile-nav-header"> 6. Tear down your Binder deployment</h3>
+              <h3 class="mobile-nav-header"> 6. Configuration and Source Code Reference</h3>
               <div class="mobile-nav-expand">
                 <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
               </div>
@@ -319,49 +341,16 @@
           
             <ul class = "heading6 collapse mobile-nav-items">
               <li class = "toctree-l2">
-                <a class="reference internal" href="turn-off.html">6. Tear down your Binder deployment</a>
+                <a class="reference internal" href="api/api-index.html">6. Configuration and Source Code Reference</a>
               </li>
               
-<li class="toctree-l2"><a class="reference internal" href="turn-off.html#contracting-the-size-of-your-cluster">6.1. Contracting the size of your cluster</a>
-<li class="toctree-l2"><a class="reference internal" href="turn-off.html#deleting-the-cluster">6.2. Deleting the cluster</a>
-
-
-
-            </ul>
-          
-        
-      </div>
-    
-      
-      
-      <div class="dropdown">
-        
-        
-          
-          
-            <div type = "button" class = "btn dropdown mobile-nav-section" data-toggle = "collapse" data-target = ".heading7">
-              <h3 class="mobile-nav-header"> 7. Configuration and Source Code Reference</h3>
-              <div class="mobile-nav-expand">
-                <img class="mobile-nav-expand-icon" src="_static/_images/jupytertheme-images/expand.svg" alt="expand icon"/>
-              </div>
-            </div>
-          
-          
-        
-          
-          
-            <ul class = "heading7 collapse mobile-nav-items">
-              <li class = "toctree-l2">
-                <a class="reference internal" href="api/api-index.html">7. Configuration and Source Code Reference</a>
-              </li>
-              
-<li class="toctree-l2"><a class="reference internal" href="api/app.html">7.1. app</a>
-<li class="toctree-l2"><a class="reference internal" href="api/build.html">7.2. build</a>
-<li class="toctree-l2"><a class="reference internal" href="api/builder.html">7.3. builder</a>
-<li class="toctree-l2"><a class="reference internal" href="api/main.html">7.4. main</a>
-<li class="toctree-l2"><a class="reference internal" href="api/redirect.html">7.5. redirect</a>
-<li class="toctree-l2"><a class="reference internal" href="api/registry.html">7.6. registry</a>
-<li class="toctree-l2"><a class="reference internal" href="api/repoproviders.html">7.7. repoproviders</a>
+<li class="toctree-l2"><a class="reference internal" href="api/app.html">6.1. app</a>
+<li class="toctree-l2"><a class="reference internal" href="api/build.html">6.2. build</a>
+<li class="toctree-l2"><a class="reference internal" href="api/builder.html">6.3. builder</a>
+<li class="toctree-l2"><a class="reference internal" href="api/main.html">6.4. main</a>
+<li class="toctree-l2"><a class="reference internal" href="api/redirect.html">6.5. redirect</a>
+<li class="toctree-l2"><a class="reference internal" href="api/registry.html">6.6. registry</a>
+<li class="toctree-l2"><a class="reference internal" href="api/repoproviders.html">6.7. repoproviders</a>
 
 
 
@@ -394,15 +383,14 @@
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="create-k8s-cluster.html">2. Create your Kubernetes cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup-registry.html">3. Set up the container registry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">4. Set up BinderHub</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Debugging BinderHub</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#changing-the-helm-chart">5.1. Changing the helm chart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-cloud-resources.html">2. Create your Kubernetes cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Debugging BinderHub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#changing-the-helm-chart">4.1. Changing the helm chart</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="turn-off.html">6. Tear down your Binder deployment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/api-index.html">7. Configuration and Source Code Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/api-index.html">6. Configuration and Source Code Reference</a></li>
 </ul>
 
 
@@ -412,13 +400,13 @@
       <div class="col-sm-8 col-md-9 content">
         
   <div class="section" id="debugging-binderhub">
-<h1>5. Debugging BinderHub<a class="headerlink" href="#debugging-binderhub" title="Permalink to this headline">¶</a></h1>
+<h1>4. Debugging BinderHub<a class="headerlink" href="#debugging-binderhub" title="Permalink to this headline">¶</a></h1>
 <p>If BinderHub isn’t behaving as you’d expect, you’ll need to debug your
 kubernetes deployment of the JupyterHub and BinderHub services. For a
 guide on how to debug in Kubernetes, see the <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/debug.html">Zero to JupyterHub debugging
 guide</a>.</p>
 <div class="section" id="changing-the-helm-chart">
-<h2>5.1. Changing the helm chart<a class="headerlink" href="#changing-the-helm-chart" title="Permalink to this headline">¶</a></h2>
+<h2>4.1. Changing the helm chart<a class="headerlink" href="#changing-the-helm-chart" title="Permalink to this headline">¶</a></h2>
 <p>If you make changes to your Helm Chart (e.g., while debugging), you should
 run an upgrade on your Kubernetes deployment like so:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">upgrade</span> <span class="n">binder</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">789e30</span><span class="n">a</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>

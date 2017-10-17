@@ -17,7 +17,7 @@ information.
 
 The first is the content of the JSON file created when we set up
 the container registry. For more information on getting a registry password, see
-:doc:`setup-registry`. We'll copy/paste the contents of this file in the steps
+:ref:`setup-registry`. We'll copy/paste the contents of this file in the steps
 below.
 
 We also need two random tokens to configure out BinderHub. Generate these
