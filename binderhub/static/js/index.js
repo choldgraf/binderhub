@@ -338,3 +338,8 @@ $(function(){
 window.onload = function() {
   new Clipboard('.clipboard');
 }
+
+// Set up copy logs button
+$('button #copy-logs').on('click', function () {
+  console.log("selection: " + log.getSelection());
+});
