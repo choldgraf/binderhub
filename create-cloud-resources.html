@@ -41,6 +41,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="diagram.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="setup-binderhub.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
   <div class="section" id="create-your-cloud-resources">
 <span id="create-cluster"></span><h1>2. Create your cloud resources<a class="headerlink" href="#create-your-cloud-resources" title="Permalink to this headline">¶</a></h1>
 <p>BinderHub is built to run on top of Kubernetes, a distributed cluster manager.
@@ -65,34 +74,36 @@ providers, <a class="reference external" href="https://github.com/jupyterhub/bin
 up a Kubernetes Cluster. You may be able to receive <a class="reference external" href="https://cloud.google.com/free/">free credits</a> for trying it out. You will need to
 connect your credit card or other payment method to your google cloud account.</p>
 <ol class="arabic">
-<li><p class="first">Go to <code class="docutils literal"><span class="pre">https://console.cloud.google.com</span></code> and log in.</p>
+<li><p class="first">Go to <a class="reference external" href="https://console.cloud.google.com">https://console.cloud.google.com</a> and log in.</p>
 </li>
 <li><p class="first">Enable the <a class="reference external" href="https://console.cloud.google.com/apis/api/container.googleapis.com/overview">Container Engine API</a>.</p>
 </li>
-<li><p class="first">Install and initialize the <strong>gcloud command-line tools</strong>. These tools send
-commands to Google Cloud and lets you do things like create and delete
-clusters.</p>
-<ul>
-<li><p class="first">Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud downloads page</a>
-to <strong>download and install the gcloud SDK</strong>.</p>
-</li>
-<li><p class="first">See the <a class="reference external" href="https://cloud.google.com/sdk/">gcloud documentation</a> for
-more information on the gcloud SDK.</p>
-</li>
-<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
-the terminal, enter:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
-</pre></div>
+<li><p class="first">Use <strong>Google Cloud Shell</strong> (<a class="reference external" href="https://cloud.google.com/shell/docs/starting-cloud-shell">Google documentation</a>)
+which will give you access to the <code class="docutils literal"><span class="pre">gcloud</span></code> command-line tool.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Alternatively, advanced users may wish to install the <code class="docutils literal"><span class="pre">gcloud</span></code> command-line
+tool in the <a class="reference external" href="https://cloud.google.com/sdk/gcloud/">Google Cloud SDK</a>.
+These tools send commands to Google Cloud and lets you do things like
+create and delete clusters.</p>
 </div>
 </li>
-</ul>
+<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
+Google Cloud shell (or a terminal for advanced users who have installed
+<code class="docutils literal"><span class="pre">gcloud</span></code> using the SDK), enter:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 <li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing in the following
 command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR_CLUSTER&gt; <span class="se">\</span>
     --num-nodes<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     --machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
-    --zone<span class="o">=</span>us-central1-b
+    --zone<span class="o">=</span>us-central1-b <span class="se">\</span>
+    --cluster-version<span class="o">=</span><span class="m">1</span>.8.4-gke.1
 </pre></div>
 </div>
 <p>where:</p>
@@ -110,6 +121,12 @@ be a good fit for all use cases!</li>
 too far away from your users. You can find a list of them <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/regions-zones#available">here</a>.</li>
 </ul>
 </li>
+<li><p class="first">Give your account super-user permissions, allowing you to perform all
+the actions needed to set up BinderHub</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding cluster-admin-binding --clusterrole<span class="o">=</span>cluster-admin --user<span class="o">=</span>&lt;my-email&gt;
+</pre></div>
+</div>
+</li>
 <li><p class="first">To test if your cluster is initialized, run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl get node
 </pre></div>
@@ -125,9 +142,18 @@ too far away from your users. You can find a list of them <a class="reference ex
 with a configuration file (called a Helm Chart). By using a <strong>Helm Chart</strong>, we
 can set up the cluster deployment to have the resources necessary for
 running BinderHub.</p>
-<p>Run the following commands to download and install helm:</p>
+<p>First download and install helm:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">|</span> <span class="n">bash</span>
-<span class="n">helm</span> <span class="n">init</span>
+</pre></div>
+</div>
+<p>Next create a role and permissions for Helm within kubernetes by running
+the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span> <span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">create</span> <span class="n">sa</span> <span class="n">tiller</span>
+<span class="n">kubectl</span> <span class="n">create</span> <span class="n">clusterrolebinding</span> <span class="n">tiller</span> <span class="o">--</span><span class="n">clusterrole</span> <span class="n">cluster</span><span class="o">-</span><span class="n">admin</span> <span class="o">--</span><span class="n">serviceaccount</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span><span class="p">:</span><span class="n">tiller</span>
+</pre></div>
+</div>
+<p>Finally initialize Helm:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">init</span> <span class="o">--</span><span class="n">service</span><span class="o">-</span><span class="n">account</span> <span class="n">tiller</span>
 </pre></div>
 </div>
 </div>
@@ -170,6 +196,14 @@ without re-doing the steps above.</p>
 </div>
 
 
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="diagram.html" title="previous chapter">1. The BinderHub Architecture</a>
+     <a class='right-next' href="setup-binderhub.html" title="next chapter">3. Set up BinderHub</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
           </div>
         </div>
       </div>
@@ -178,22 +212,49 @@ without re-doing the steps above.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">2. Create your cloud resources</a><ul>
-<li><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a></li>
-<li><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a></li>
-<li><a class="reference internal" href="#set-up-the-container-registry">2.3. Set up the container registry</a></li>
+<h1 class="logo"><a href="index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Create your cloud resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-helm">2.2. Installing Helm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-the-container-registry">2.3. Set up the container registry</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">4. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">6. BinderHub API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">7. Configuration and Source Code Reference</a></li>
 </ul>
+
+
 <div class="relations">
-<h3>Related Topics</h3>
+<h3>Navigation</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="diagram.html" title="previous chapter">1. The BinderHub Architecture</a></li>
-      <li>Next: <a href="setup-binderhub.html" title="next chapter">3. Set up BinderHub</a></li>
-  </ul></li>
+  <li><a href="index.html">Documentation Home</a><ul>
+  <li><a href="diagram.html" title="Previous">Previous topic</a></li>
+  <li><a href="setup-binderhub.html" title="Next">Next topic</a></li>
+  </ul>
 </ul>
 </div>
   <div role="note" aria-label="source link">
@@ -221,7 +282,7 @@ without re-doing the steps above.</p>
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

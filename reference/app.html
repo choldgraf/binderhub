@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>6.1. app &#8212; BinderHub 0.1.0 documentation</title>
+    <title>7.1. app &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.2. build" href="build.html" />
-    <link rel="prev" title="6. Configuration and Source Code Reference" href="api-index.html" />
+    <link rel="next" title="7.2. build" href="build.html" />
+    <link rel="prev" title="7. Configuration and Source Code Reference" href="ref-index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -41,18 +41,53 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="ref-index.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="build.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
   <div class="section" id="app">
-<h1>6.1. app<a class="headerlink" href="#app" title="Permalink to this headline">¶</a></h1>
+<h1>7.1. app<a class="headerlink" href="#app" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-binderhub.app">
-<span id="module-binderhub-app"></span><h2>6.1.1. Module: <a class="reference internal" href="#module-binderhub.app" title="binderhub.app"><code class="xref py py-mod docutils literal"><span class="pre">binderhub.app</span></code></a><a class="headerlink" href="#module-binderhub.app" title="Permalink to this headline">¶</a></h2>
+<span id="module-binderhub-app"></span><h2>7.1.1. Module: <a class="reference internal" href="#module-binderhub.app" title="binderhub.app"><code class="xref py py-mod docutils literal"><span class="pre">binderhub.app</span></code></a><a class="headerlink" href="#module-binderhub.app" title="Permalink to this headline">¶</a></h2>
 <p>The binderhub application</p>
 </div>
 <div class="section" id="binderhub">
-<h2>6.1.2. <a class="reference internal" href="#binderhub.app.BinderHub" title="binderhub.app.BinderHub"><code class="xref py py-class docutils literal"><span class="pre">BinderHub</span></code></a><a class="headerlink" href="#binderhub" title="Permalink to this headline">¶</a></h2>
+<h2>7.1.2. <a class="reference internal" href="#binderhub.app.BinderHub" title="binderhub.app.BinderHub"><code class="xref py py-class docutils literal"><span class="pre">BinderHub</span></code></a><a class="headerlink" href="#binderhub" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="binderhub.app.BinderHub">
 <em class="property">class </em><code class="descclassname">binderhub.app.</code><code class="descname">BinderHub</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.app.BinderHub" title="Permalink to this definition">¶</a></dt>
 <dd><p>An Application for starting a builder.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.base_url = Unicode('/')</code></dt>
+<dd><p>The base URL of the entire application</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.build_docker_host = Unicode('/var/run/docker.sock')</code></dt>
+<dd><p>The docker URL repo2docker should use to build the images.</p>
+<p>Currently, only paths are supported, and they are expected to be available on
+all the hosts.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.build_memory_limit = ByteSpecification(0)</code></dt>
+<dd><p>Max amount of memory allocated for each image build process.</p>
+<p>0 sets no limit.</p>
+<p>This is used as both the memory limit &amp; request for the pod
+that is spawned to do the building, even though the pod itself
+will not be using that much memory since the docker building is
+happening outside the pod. However, it makes kubernetes aware of
+the resources being used, and lets it schedule more intelligently.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt>
 <code class="descname">config c.BinderHub.build_namespace = Unicode('default')</code></dt>
@@ -62,7 +97,7 @@
 
 <dl class="attribute">
 <dt>
-<code class="descname">config c.BinderHub.builder_image_spec = Unicode('jupyter/repo2docker:v0.4.1')</code></dt>
+<code class="descname">config c.BinderHub.builder_image_spec = Unicode('jupyter/repo2docker:235f0ad')</code></dt>
 <dd><p>The builder image to be used for doing builds</p>
 </dd></dl>
 
@@ -123,6 +158,14 @@
 <dd><p>The Google Analytics code to use on the main page.</p>
 <p>Note that we’ll respect Do Not Track settings, despite the fact that GA does not.
 We will not load the GA scripts on browsers with DNT enabled.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.google_analytics_domain = Unicode('auto')</code></dt>
+<dd><p>The Google Analytics domain to use on the main page.</p>
+<p>By default this is set to ‘auto’, which sets it up for current domain and all
+subdomains. This can be set to a more restrictive domain here for better privacy</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -183,6 +226,38 @@ We will not load the GA scripts on browsers with DNT enabled.</p>
 in a single node.</p>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="binderhub.app.BinderHub.add_url_prefix">
+<em class="property">static </em><code class="descname">add_url_prefix</code><span class="sig-paren">(</span><em>prefix</em>, <em>handlers</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.app.BinderHub.add_url_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a url prefix to handlers</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.base_url = Unicode('/')</code></dt>
+<dd><p>The base URL of the entire application</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.build_docker_host = Unicode('/var/run/docker.sock')</code></dt>
+<dd><p>The docker URL repo2docker should use to build the images.</p>
+<p>Currently, only paths are supported, and they are expected to be available on
+all the hosts.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">config c.BinderHub.build_memory_limit = ByteSpecification(0)</code></dt>
+<dd><p>Max amount of memory allocated for each image build process.</p>
+<p>0 sets no limit.</p>
+<p>This is used as both the memory limit &amp; request for the pod
+that is spawned to do the building, even though the pod itself
+will not be using that much memory since the docker building is
+happening outside the pod. However, it makes kubernetes aware of
+the resources being used, and lets it schedule more intelligently.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt>
 <code class="descname">config c.BinderHub.build_namespace = Unicode('default')</code></dt>
@@ -192,7 +267,7 @@ in a single node.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">config c.BinderHub.builder_image_spec = Unicode('jupyter/repo2docker:v0.4.1')</code></dt>
+<code class="descname">config c.BinderHub.builder_image_spec = Unicode('jupyter/repo2docker:235f0ad')</code></dt>
 <dd><p>The builder image to be used for doing builds</p>
 </dd></dl>
 
@@ -257,6 +332,14 @@ We will not load the GA scripts on browsers with DNT enabled.</p>
 
 <dl class="attribute">
 <dt>
+<code class="descname">config c.BinderHub.google_analytics_domain = Unicode('auto')</code></dt>
+<dd><p>The Google Analytics domain to use on the main page.</p>
+<p>By default this is set to ‘auto’, which sets it up for current domain and all
+subdomains. This can be set to a more restrictive domain here for better privacy</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descname">config c.BinderHub.hub_api_token = Unicode('')</code></dt>
 <dd><p>API token for talking to the JupyterHub API</p>
 </dd></dl>
@@ -307,6 +390,14 @@ in a single node.</p>
 </div>
 
 
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="ref-index.html" title="previous chapter">7. Configuration and Source Code Reference</a>
+     <a class='right-next' href="build.html" title="next chapter">7.2. build</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
           </div>
         </div>
       </div>
@@ -315,29 +406,58 @@ in a single node.</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">6.1. app</a><ul>
-<li><a class="reference internal" href="#module-binderhub.app">6.1.1. Module: <code class="docutils literal"><span class="pre">binderhub.app</span></code></a></li>
-<li><a class="reference internal" href="#binderhub">6.1.2. <code class="docutils literal"><span class="pre">BinderHub</span></code></a></li>
+<h1 class="logo"><a href="../index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../create-cloud-resources.html">2. Create your cloud resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">4. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">6. BinderHub API Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ref-index.html">7. Configuration and Source Code Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.1. app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">7.2. build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builder.html">7.3. builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">7.4. main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="registry.html">7.5. registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repoproviders.html">7.6. repoproviders</a></li>
 </ul>
 </li>
 </ul>
+
+
 <div class="relations">
-<h3>Related Topics</h3>
+<h3>Navigation</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="api-index.html">6. Configuration and Source Code Reference</a><ul>
-      <li>Previous: <a href="api-index.html" title="previous chapter">6. Configuration and Source Code Reference</a></li>
-      <li>Next: <a href="build.html" title="next chapter">6.2. build</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="../index.html">Documentation Home</a><ul>
+  <li><a href="ref-index.html" title="Previous">Previous topic</a></li>
+  <li><a href="build.html" title="Next">Next topic</a></li>
+  </ul>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/api/app.rst.txt"
+      <li><a href="../_sources/reference/app.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -359,11 +479,11 @@ in a single node.</p>
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/api/app.rst.txt"
+      <a href="../_sources/reference/app.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -41,6 +41,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="create-cloud-resources.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="debug.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
   <div class="section" id="set-up-binderhub">
 <h1>3. Set up BinderHub<a class="headerlink" href="#set-up-binderhub" title="Permalink to this headline">¶</a></h1>
 <p>BinderHub uses Helm Charts to set up the applications we’ll use in our Binder
@@ -52,7 +61,14 @@ BinderHub deployment.</p>
 <h2>3.1. Preparing to install<a class="headerlink" href="#preparing-to-install" title="Permalink to this headline">¶</a></h2>
 <p>To configure the Helm Chart we’ll need to generate several pieces of
 information and insert them into <code class="docutils literal"><span class="pre">yaml</span></code> files.</p>
-<p>The first is the content of the JSON file created when we set up
+<p>First we’ll create a folder where we’ll store our BinderHub configuration
+files. You can do so with the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">binderhub</span>
+<span class="n">cd</span> <span class="n">binderhub</span>
+</pre></div>
+</div>
+<p>Now we’ll collect the information we need to deploy our BinderHub.
+The first is the content of the JSON file created when we set up
 the container registry. For more information on getting a registry password, see
 <a class="reference internal" href="create-cloud-resources.html#setup-registry"><span class="std std-ref">Set up the container registry</span></a>. We’ll copy/paste the contents of this file in the steps
 below.</p>
@@ -101,12 +117,11 @@ outputs.:</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The content you put just after <code class="docutils literal"><span class="pre">password:</span> <span class="pre">|</span></code> must all line up at the same
-tab level.</p>
-</div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Don’t forget the <code class="docutils literal"><span class="pre">|</span></code> after the <code class="docutils literal"><span class="pre">password:</span></code> label.</p>
+<ul class="last simple">
+<li>The content you put just after <code class="docutils literal"><span class="pre">password:</span> <span class="pre">|</span></code> must all line up at the same
+tab level.</li>
+<li>Don’t forget the <code class="docutils literal"><span class="pre">|</span></code> after the <code class="docutils literal"><span class="pre">password:</span></code> label.</li>
+</ul>
 </div>
 </div>
 <div class="section" id="create-config-yaml">
@@ -126,17 +141,13 @@ tab level.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><strong>google-project-id</strong>:
-Note that the <code class="docutils literal"><span class="pre">google-project-id</span></code> in the <code class="docutils literal"><span class="pre">prefix:</span></code> line is the project <em>ID</em>,
-not just the project name. Although the project name and project ID can be the same,
-sometimes these will differ (i.e. if you have created a project name that’s been
-used before).</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><strong>`prefix`</strong>:
-<code class="docutils literal"><span class="pre">&lt;prefix&gt;</span></code> can be any string, and will be appended to image names. We
-recommend something descriptive such as <code class="docutils literal"><span class="pre">dev</span></code> or <code class="docutils literal"><span class="pre">prod</span></code>.</p>
+<ul class="last simple">
+<li><strong>``&lt;google-project-id&gt;``</strong> can be found in the JSON file that you
+pasted above. It is the text that is in the <code class="docutils literal"><span class="pre">project_id</span></code> field. This is
+the project <em>ID</em>, which may be different from the project <em>name</em>.</li>
+<li><strong>``&lt;prefix&gt;``</strong> can be any string, and will be prepended to image names. We
+recommend something descriptive such as <code class="docutils literal"><span class="pre">dev</span></code> or <code class="docutils literal"><span class="pre">prod</span></code>.</li>
+</ul>
 </div>
 </div>
 <div class="section" id="install-binderhub">
@@ -148,18 +159,17 @@ recommend something descriptive such as <code class="docutils literal"><span cla
 </div>
 <p>Next, <strong>install the Helm Chart</strong> using the configuration files
 that you’ve just created. Do this by running the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">789e30</span><span class="n">a</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">binder</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">binder</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">397</span><span class="n">eb59</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">binder</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">binder</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">--version</span></code> refers to the version of the BinderHub <strong>Helm Chart</strong>.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">namespace</span></code> may be different, but we recommend using
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">--version</span></code> refers to the version of the BinderHub <strong>Helm Chart</strong>.</li>
+<li><code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">namespace</span></code> may be different, but we recommend using
 the same <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">namespace</span></code> to avoid confusion. We recommend
-something descriptive and short.</p>
+something descriptive and short.</li>
+</ul>
 </div>
 <p>This installation step will deploy both a BinderHub and a JupyterHub, but
 they are not yet set up to communicate with each other. We’ll fix this in
@@ -180,7 +190,7 @@ JupyterHub. Now, add the following lines to <code class="docutils literal"><span
 </pre></div>
 </div>
 <p>Next, upgrade the helm chart to deploy this change:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">upgrade</span> <span class="n">binder</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">789e30</span><span class="n">a</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">upgrade</span> <span class="n">binder</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">397</span><span class="n">eb59</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 </div>
@@ -196,11 +206,45 @@ command:</p>
 <p>Note the IP address in <code class="docutils literal"><span class="pre">EXTERNAL-IP</span></code>. This is your BinderHub IP address.
 Type this IP address in your browser and a BinderHub should be waiting there
 for you.</p>
-<p>You now have a functioning BinderHub at the above IP address. For next
-steps, see <a class="reference internal" href="debug.html"><span class="doc">Debugging BinderHub</span></a> and <a class="reference internal" href="turn-off.html"><span class="doc">Tear down your Binder deployment</span></a>.</p>
+<p>You now have a functioning BinderHub at the above IP address.</p>
+</div>
+<div class="section" id="increase-your-github-api-limit">
+<span id="api-limit"></span><h2>3.7. Increase your GitHub API limit<a class="headerlink" href="#increase-your-github-api-limit" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Increasing the GitHub API limit is not strictly required, but is recommended
+before sharing your BinderHub URL with users.</p>
+</div>
+<p>By default GitHub only lets you make 60 requests each hour. If you
+expect your users to serve repositories hosted on GitHub, we recommend creating
+an API access token to raise your API limit to 5000 requests an hour.</p>
+<ol class="arabic">
+<li><p class="first">Create a new token with default (check no boxes)
+permissions <a class="reference external" href="https://github.com/settings/tokens/new">here</a>.</p>
+</li>
+<li><p class="first">Store your new token somewhere secure (e.g. keychain, netrc, etc.)</p>
+</li>
+<li><p class="first">Before running your BinderHub server, run the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">GITHUB_ACCESS_TOKEN</span><span class="o">=&lt;</span><span class="n">insert_token_value_here</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>BinderHub will automatically use the token stored in this variable when making
+API requests to GitHub. See the <a class="reference external" href="https://developer.github.com/v3/guides/getting-started/#authentication">GitHub authentication documentation</a> for
+more information about API limits.</p>
+<p>For next steps, see <a class="reference internal" href="debug.html"><span class="doc">Debugging BinderHub</span></a> and <a class="reference internal" href="turn-off.html"><span class="doc">Tear down your Binder deployment</span></a>.</p>
 </div>
 </div>
 
+
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="create-cloud-resources.html" title="previous chapter">2. Create your cloud resources</a>
+     <a class='right-next' href="debug.html" title="next chapter">4. Debugging BinderHub</a>
+  <div style='clear:both;'></div>
+
+  </div>
 
           </div>
         </div>
@@ -210,25 +254,53 @@ steps, see <a class="reference internal" href="debug.html"><span class="doc">Deb
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">3. Set up BinderHub</a><ul>
-<li><a class="reference internal" href="#preparing-to-install">3.1. Preparing to install</a></li>
-<li><a class="reference internal" href="#create-secret-yaml-file">3.2. Create <code class="docutils literal"><span class="pre">secret.yaml</span></code> file</a></li>
-<li><a class="reference internal" href="#create-config-yaml">3.3. Create <code class="docutils literal"><span class="pre">config.yaml</span></code></a></li>
-<li><a class="reference internal" href="#install-binderhub">3.4. Install BinderHub</a></li>
-<li><a class="reference internal" href="#connect-binderhub-and-jupyterhub">3.5. Connect BinderHub and JupyterHub</a></li>
-<li><a class="reference internal" href="#try-out-your-binderhub-deployment">3.6. Try out your BinderHub Deployment</a></li>
+<h1 class="logo"><a href="index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-cloud-resources.html">2. Create your cloud resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Set up BinderHub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-to-install">3.1. Preparing to install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-secret-yaml-file">3.2. Create <code class="docutils literal"><span class="pre">secret.yaml</span></code> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-config-yaml">3.3. Create <code class="docutils literal"><span class="pre">config.yaml</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-binderhub">3.4. Install BinderHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connect-binderhub-and-jupyterhub">3.5. Connect BinderHub and JupyterHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#try-out-your-binderhub-deployment">3.6. Try out your BinderHub Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#increase-your-github-api-limit">3.7. Increase your GitHub API limit</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">4. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">6. BinderHub API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">7. Configuration and Source Code Reference</a></li>
 </ul>
+
+
 <div class="relations">
-<h3>Related Topics</h3>
+<h3>Navigation</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="create-cloud-resources.html" title="previous chapter">2. Create your cloud resources</a></li>
-      <li>Next: <a href="debug.html" title="next chapter">4. Debugging BinderHub</a></li>
-  </ul></li>
+  <li><a href="index.html">Documentation Home</a><ul>
+  <li><a href="create-cloud-resources.html" title="Previous">Previous topic</a></li>
+  <li><a href="debug.html" title="Next">Next topic</a></li>
+  </ul>
 </ul>
 </div>
   <div role="note" aria-label="source link">
@@ -256,7 +328,7 @@ steps, see <a class="reference internal" href="debug.html"><span class="doc">Deb
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

@@ -1,0 +1,302 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>6. BinderHub API Documentation &#8212; BinderHub 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Configuration and Source Code Reference" href="reference/ref-index.html" />
+    <link rel="prev" title="5. Tear down your Binder deployment" href="turn-off.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="turn-off.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="reference/ref-index.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
+  <div class="section" id="binderhub-api-documentation">
+<h1>6. BinderHub API Documentation<a class="headerlink" href="#binderhub-api-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="endpoint">
+<h2>6.1. Endpoint<a class="headerlink" href="#endpoint" title="Permalink to this headline">¶</a></h2>
+<p>There’s one API endpoint, which is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">build</span><span class="o">/&lt;</span><span class="n">provider</span><span class="o">&gt;/&lt;</span><span class="n">spec</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Even though it says <strong>build</strong> it is actually performs <strong>launch</strong>.</p>
+</div>
+<div class="section" id="provider">
+<h2>6.2. Provider<a class="headerlink" href="#provider" title="Permalink to this headline">¶</a></h2>
+<p>Provider is a supported provider, and <strong>spec</strong> is the specification for
+the given provider.</p>
+<p>Currently supported providers and their specs are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="10%" />
+<col width="54%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Provider</th>
+<th class="head">prefix</th>
+<th class="head">spec</th>
+<th class="head">notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GitHub</td>
+<td><code class="docutils literal"><span class="pre">gh</span></code></td>
+<td><code class="docutils literal"><span class="pre">&lt;user&gt;/&lt;repo&gt;/&lt;commit-sha-or-tag-or-branch&gt;</span></code></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Git</td>
+<td><code class="docutils literal"><span class="pre">git</span></code></td>
+<td><code class="docutils literal"><span class="pre">&lt;url-escaped-url&gt;/&lt;commit-sha&gt;</span></code></td>
+<td>arbitrary HTTP git repos</td>
+</tr>
+<tr class="row-even"><td>GitLab</td>
+<td><code class="docutils literal"><span class="pre">gl</span></code></td>
+<td><code class="docutils literal"><span class="pre">&lt;url-escaped-namespace&gt;/&lt;commit-sha-or-tag-or-branch&gt;</span></code></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Next, construct an appropriate URL and send a request.</p>
+<p>You’ll get back an <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Event
+Stream</a>.
+It’s pretty much just a long-lived HTTP connection with a well known
+JSON based data protocol. It’s one-way communication only (server to
+client) and is straightforward to implement across multiple languages.</p>
+<p>When the request is received, the following happens:</p>
+<ol class="arabic simple">
+<li>Check if this image exists in our cached image registry. If so,
+launch it.</li>
+<li>If it doesn’t exist in the image registry, we check if a build is
+currently running. If it is, we attach to it and start streaming logs
+from it to the user.</li>
+<li>If there is no build in progress, we start a build and start
+streaming logs from it to the user.</li>
+<li>If the build succeeds, we contact the JupyterHub API and start
+launching the server.</li>
+</ol>
+</div>
+<div class="section" id="events">
+<h2>6.3. Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>This section catalogs the different events you might receive.</p>
+<div class="section" id="failed">
+<h3>6.3.1. Failed<a class="headerlink" href="#failed" title="Permalink to this headline">¶</a></h3>
+<p>Emitted whenever a build or launch fails. You <em>must</em> close your
+EventStream when you receive this event.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Reason for failure&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="built">
+<h3>6.3.2. Built<a class="headerlink" href="#built" title="Permalink to this headline">¶</a></h3>
+<p>Emitted after the image has been built, before launching begins. This is
+emitted in the start if the image has been found in the cache registry,
+or after build completes successfully if we had to do a build.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;built&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Human readable message&#39;</span><span class="p">,</span> <span class="s1">&#39;imageName&#39;</span><span class="p">:</span> <span class="s1">&#39;Full name of the image that is in the cached docker registry&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that clients shouldn’t rely on the imageName field for anything
+specific. It should be considered an internal implementation detail.</p>
+</div>
+<div class="section" id="waiting">
+<h3>6.3.3. Waiting<a class="headerlink" href="#waiting" title="Permalink to this headline">¶</a></h3>
+<p>Emitted when we started a build pod and are waiting for it to start.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;waiting&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Human readable message&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building">
+<h3>6.3.4. Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h3>
+<p>Emitted during the actual building process. Direct stream of logs from
+the build pod from repo2docker, in the same form as logs from a normal
+docker build.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;building&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Log message&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fetching">
+<h3>6.3.5. Fetching<a class="headerlink" href="#fetching" title="Permalink to this headline">¶</a></h3>
+<p>Emitted when fetching the repository to be built from its source
+(GitHub, GitLab, wherever).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;fetching&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;log messages from fetching process&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pushing">
+<h3>6.3.6. Pushing<a class="headerlink" href="#pushing" title="Permalink to this headline">¶</a></h3>
+<p>Emitted when the image is being pushed to the cache registry. This
+provides structured status info that could be in a progressbar. It’s
+structured similar to the output of docker push.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;pushing&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Human readable message&#39;</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;layer1&#39;</span><span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">bytes</span><span class="o">-</span><span class="n">pushed</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">full</span><span class="o">-</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">},</span> <span class="s1">&#39;layer2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">bytes</span><span class="o">-</span><span class="n">pushed</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">full</span><span class="o">-</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">},</span> <span class="s1">&#39;layer3&#39;</span><span class="p">:</span> <span class="s2">&quot;Pushed&quot;</span><span class="p">,</span> <span class="s1">&#39;layer4&#39;</span><span class="p">:</span> <span class="s1">&#39;Layer already exists&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="launching">
+<h3>6.3.7. Launching<a class="headerlink" href="#launching" title="Permalink to this headline">¶</a></h3>
+<p>When the repo has been built, and we’re in the process of waiting for
+the hub to launch. This could end up succeeding and emitting a ‘ready’
+event or failing and emitting a ‘failure’ event.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;launching&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;user friendly message&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ready">
+<h3>6.3.8. Ready<a class="headerlink" href="#ready" title="Permalink to this headline">¶</a></h3>
+<p>When your notebook is ready! You get a endpoint URL and a token used to
+access it. You can access the notebook / API by using the token in one
+of the ways the <a class="reference external" href="http://jupyter-notebook.readthedocs.io/en/stable/security.html">notebook accepts security
+tokens</a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;phase&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Human readable message&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;full-url-of-notebook-server&quot;</span><span class="p">,</span> <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;notebook-server-token&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="heartbeat">
+<h2>6.4. Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline">¶</a></h2>
+<p>In EventSource, all lines beginning with <code class="docutils literal"><span class="pre">:</span></code> are considered comments.
+We send a <code class="docutils literal"><span class="pre">:heartbeat</span></code> every 30s to make sure that we can pass through
+proxies without our request being killed.</p>
+</div>
+</div>
+
+
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="turn-off.html" title="previous chapter">5. Tear down your Binder deployment</a>
+     <a class='right-next' href="reference/ref-index.html" title="next chapter">7. Configuration and Source Code Reference</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-cloud-resources.html">2. Create your cloud resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">4. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. BinderHub API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#endpoint">6.1. Endpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provider">6.2. Provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#events">6.3. Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#heartbeat">6.4. Heartbeat</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">7. Configuration and Source Code Reference</a></li>
+</ul>
+
+
+<div class="relations">
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Documentation Home</a><ul>
+  <li><a href="turn-off.html" title="Previous">Previous topic</a></li>
+  <li><a href="reference/ref-index.html" title="Next">Next topic</a></li>
+  </ul>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, The Jupyter Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

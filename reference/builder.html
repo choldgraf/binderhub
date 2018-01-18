@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>6.3. builder &#8212; BinderHub 0.1.0 documentation</title>
+    <title>7.3. builder &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.4. main" href="main.html" />
-    <link rel="prev" title="6.2. build" href="build.html" />
+    <link rel="next" title="7.4. main" href="main.html" />
+    <link rel="prev" title="7.2. build" href="build.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -41,14 +41,23 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="build.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="main.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
   <div class="section" id="builder">
-<h1>6.3. builder<a class="headerlink" href="#builder" title="Permalink to this headline">¶</a></h1>
+<h1>7.3. builder<a class="headerlink" href="#builder" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-binderhub.builder">
-<span id="module-binderhub-builder"></span><h2>6.3.1. Module: <a class="reference internal" href="#module-binderhub.builder" title="binderhub.builder"><code class="xref py py-mod docutils literal"><span class="pre">binderhub.builder</span></code></a><a class="headerlink" href="#module-binderhub.builder" title="Permalink to this headline">¶</a></h2>
+<span id="module-binderhub-builder"></span><h2>7.3.1. Module: <a class="reference internal" href="#module-binderhub.builder" title="binderhub.builder"><code class="xref py py-mod docutils literal"><span class="pre">binderhub.builder</span></code></a><a class="headerlink" href="#module-binderhub.builder" title="Permalink to this headline">¶</a></h2>
 <p>Handlers for working with version control services (i.e. GitHub) for builds.</p>
 </div>
 <div class="section" id="buildhandler">
-<h2>6.3.2. <a class="reference internal" href="#binderhub.builder.BuildHandler" title="binderhub.builder.BuildHandler"><code class="xref py py-class docutils literal"><span class="pre">BuildHandler</span></code></a><a class="headerlink" href="#buildhandler" title="Permalink to this headline">¶</a></h2>
+<h2>7.3.2. <a class="reference internal" href="#binderhub.builder.BuildHandler" title="binderhub.builder.BuildHandler"><code class="xref py py-class docutils literal"><span class="pre">BuildHandler</span></code></a><a class="headerlink" href="#buildhandler" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="binderhub.builder.BuildHandler">
 <em class="property">class </em><code class="descclassname">binderhub.builder.</code><code class="descname">BuildHandler</code><span class="sig-paren">(</span><em>application</em>, <em>request</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.builder.BuildHandler" title="Permalink to this definition">¶</a></dt>
@@ -56,7 +65,22 @@
 <dl class="method">
 <dt id="binderhub.builder.BuildHandler.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>provider_prefix</em>, <em>spec</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.builder.BuildHandler.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a built image for a given GitHub user, repo, and ref.</p>
+<dd><p>Get a built image for a given spec and repo provider.</p>
+<p>Different repo providers will require different spec information. This
+function relies on the functionality of the tornado <code class="docutils literal"><span class="pre">GET</span></code> request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>provider_prefix</strong> (<em>str</em>) – the nickname for a repo provider (i.e. ‘gh’)</li>
+<li><strong>spec</strong> – specifies information needed by the repo provider (i.e. user,
+repo, ref, etc.)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -69,7 +93,7 @@
 <dl class="method">
 <dt id="binderhub.builder.BuildHandler.launch">
 <code class="descname">launch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.builder.BuildHandler.launch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ask the Hub to launch the image</p>
+<dd><p>Ask JupyterHub to launch the image.</p>
 </dd></dl>
 
 <dl class="method">
@@ -90,6 +114,14 @@
 </div>
 
 
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="build.html" title="previous chapter">7.2. build</a>
+     <a class='right-next' href="main.html" title="next chapter">7.4. main</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
           </div>
         </div>
       </div>
@@ -98,29 +130,58 @@
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">6.3. builder</a><ul>
-<li><a class="reference internal" href="#module-binderhub.builder">6.3.1. Module: <code class="docutils literal"><span class="pre">binderhub.builder</span></code></a></li>
-<li><a class="reference internal" href="#buildhandler">6.3.2. <code class="docutils literal"><span class="pre">BuildHandler</span></code></a></li>
+<h1 class="logo"><a href="../index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../diagram.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../create-cloud-resources.html">2. Create your cloud resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">4. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turn-off.html">5. Tear down your Binder deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">6. BinderHub API Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ref-index.html">7. Configuration and Source Code Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.html">7.1. app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">7.2. build</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.3. builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">7.4. main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="registry.html">7.5. registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repoproviders.html">7.6. repoproviders</a></li>
 </ul>
 </li>
 </ul>
+
+
 <div class="relations">
-<h3>Related Topics</h3>
+<h3>Navigation</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="api-index.html">6. Configuration and Source Code Reference</a><ul>
-      <li>Previous: <a href="build.html" title="previous chapter">6.2. build</a></li>
-      <li>Next: <a href="main.html" title="next chapter">6.4. main</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="../index.html">Documentation Home</a><ul>
+  <li><a href="build.html" title="Previous">Previous topic</a></li>
+  <li><a href="main.html" title="Next">Next topic</a></li>
+  </ul>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/api/builder.rst.txt"
+      <li><a href="../_sources/reference/builder.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -142,11 +203,11 @@
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/api/builder.rst.txt"
+      <a href="../_sources/reference/builder.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
