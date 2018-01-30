@@ -79,27 +79,45 @@ connect your credit card or other payment method to your google cloud account.</
 </li>
 <li><p class="first">Enable the <a class="reference external" href="https://console.cloud.google.com/apis/api/container.googleapis.com/overview">Kubernetes Engine API</a>.</p>
 </li>
-<li><p class="first">Install and initialize the <strong>gcloud command-line tools</strong>. These tools send
-commands to Google Cloud and lets you do things like create and delete
-clusters.</p>
-<ul>
-<li><p class="first">Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud downloads page</a>
-to <strong>download and install the gcloud SDK</strong>.</p>
-</li>
-<li><p class="first">See the <a class="reference external" href="https://cloud.google.com/sdk/">gcloud documentation</a> for
-more information on the gcloud SDK.</p>
-</li>
-<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
-the terminal, enter:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
-</pre></div>
-</div>
+<li><p class="first">Use your preferred command line interface.</p>
+<p>You have two options: a) use the Google Cloud Shell (no installation needed)
+or b) install and use the gcloud command-line tool.
+If you are unsure which to choose, we recommend beginning with option
+“a” and using the Google Cloud Shell. Instructions
+for each are detailed below:</p>
+<ol class="loweralpha simple">
+<li><strong>Use the Google Cloud Shell</strong>. Start the Google Cloud Shell</li>
+</ol>
+<blockquote>
+<div><p>by clicking the button shown below. This will start an interactive shell
+session within Google Cloud.</p>
+</div></blockquote>
+<img alt="_static/images/google/start_interactive_cli.png" class="align-center" src="_static/images/google/start_interactive_cli.png" />
+<p>See the <a class="reference external" href="https://cloud.google.com/shell/docs/">Google Cloud Shell docs</a>
+for more information.</p>
+<ul class="simple">
+<li><strong>Install and use the gcloud command line tool</strong>.
+This tool sends commands to Google Cloud and lets you do things like create
+and delete clusters.<ul>
+<li>Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud command line tool downloads page</a>
+to <strong>download and install the gcloud command line tool</strong>.</li>
+<li>See the <a class="reference external" href="https://cloud.google.com/pubsub/docs/quickstart-cli">gcloud documentation</a> for
+more information on the gcloud command line tool.</li>
+</ul>
 </li>
 </ul>
 </li>
-<li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing in the following
-command:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR_CLUSTER&gt; <span class="se">\</span>
+<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
+the terminal, enter:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing the following
+command into either the Google Cloud shell or the gcloud command-line tool:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR-CLUSTER&gt; <span class="se">\</span>
     --num-nodes<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     --machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
     --zone<span class="o">=</span>us-central1-b <span class="se">\</span>
@@ -131,7 +149,7 @@ we specify the minimum that the default configuration will support.</li>
 </li>
 <li><p class="first">Give your account super-user permissions, allowing you to perform all
 the actions needed to set up JupyterHub.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding cluster-admin-binding --clusterrole<span class="o">=</span>cluster-admin --user<span class="o">=</span>&lt;your-email-address&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding cluster-admin-binding --clusterrole<span class="o">=</span>cluster-admin --user<span class="o">=</span>&lt;YOUR-EMAIL-ADDRESS&gt;
 </pre></div>
 </div>
 </li>
@@ -164,9 +182,11 @@ for use by <code class="docutils literal"><span class="pre">Tiller</span></code>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl --namespace kube-system create serviceaccount tiller
 </pre></div>
 </div>
+<p><strong>Azure AKS</strong>: If you’re on Azure AKS, you should now skip directly to step 3.**</p>
 </li>
 <li><p class="first">Give the <code class="docutils literal"><span class="pre">ServiceAccount</span></code> <a class="reference external" href="https://kubernetes.io/docs/admin/authorization/rbac/">RBAC</a> full permissions to
-manage the cluser. While most clusters have RBAC enabled and you need this
+manage the cluser.</p>
+<p>While most clusters have RBAC enabled and you need this
 line, you <strong>must</strong> skip this step if your kubernetes cluster does not have
 RBAC enabled (for example, if you are using Azure AKS).</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount<span class="o">=</span>kube-system:tiller
@@ -334,7 +354,7 @@ without re-doing the steps above.</p>
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
