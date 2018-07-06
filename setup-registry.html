@@ -1,0 +1,209 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>2. Set up the container registry &#8212; BinderHub 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Set up BinderHub" href="setup-binderhub.html" />
+    <link rel="prev" title="1. Create your cloud resources" href="create-cloud-resources.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="create-cloud-resources.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="setup-binderhub.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+  
+  <div class="section" id="set-up-the-container-registry">
+<span id="setup-registry"></span><h1>2. Set up the container registry<a class="headerlink" href="#set-up-the-container-registry" title="Permalink to this headline">¶</a></h1>
+<p>BinderHub will build Docker images out of Git repositories, and then push
+them to a Docker registry so that JupyterHub can launch user servers based
+on these images. You can use any registry that
+you like, though this guide covers how to properly configure two popular
+registries: the <strong>Google Container Registry</strong> (<code class="docutils literal notranslate"><span class="pre">gcr.io</span></code>) and DockerHub
+(<code class="docutils literal notranslate"><span class="pre">hub.docker.com</span></code>).</p>
+<div class="section" id="set-up-google-container-registry">
+<span id="use-gcr"></span><h2>2.1. Set up Google Container Registry<a class="headerlink" href="#set-up-google-container-registry" title="Permalink to this headline">¶</a></h2>
+<p>To use Google Container Registry, you’ll need to provide BinderHub
+with proper credentials so it can push images. You can do so by creating a
+service account that has authorization to push to Google Container Registry:</p>
+<ol class="arabic simple">
+<li>Go to <a class="reference external" href="http://console.cloud.google.com">console.cloud.google.com</a></li>
+<li>Make sure your project is selected</li>
+<li>Click <code class="docutils literal notranslate"><span class="pre">&lt;top-left</span> <span class="pre">menu</span> <span class="pre">w/</span> <span class="pre">three</span> <span class="pre">horizontal</span> <span class="pre">bars&gt;</span> <span class="pre">-&gt;</span> <span class="pre">IAM</span> <span class="pre">&amp;</span> <span class="pre">Admin</span> <span class="pre">-&gt;</span> <span class="pre">Service</span> <span class="pre">Accounts</span></code> menu option</li>
+<li>Click <strong>Create service account</strong></li>
+<li>Give your account a descriptive name such as “binderhub-builder”</li>
+<li>Click <code class="docutils literal notranslate"><span class="pre">Role</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">Admin</span></code> menu option</li>
+<li>Check <strong>Furnish new private key</strong></li>
+<li>Leave key type as default of <strong>JSON</strong></li>
+<li>Click <strong>Create</strong></li>
+</ol>
+<p>These steps will download a <strong>JSON file</strong> to your computer. The JSON file
+contains the password that can be used to push Docker images to the <code class="docutils literal notranslate"><span class="pre">gcr.io</span></code>
+registry.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don’t share the contents of this JSON file with anyone. It can be used to
+gain access to your google cloud account!</p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Make sure to store this JSON file as you cannot generate a second one
+without re-doing the steps above.</p>
+</div>
+</div>
+<div class="section" id="set-up-docker-hub-registry">
+<span id="use-docker-hub"></span><h2>2.2. Set up Docker Hub registry<a class="headerlink" href="#set-up-docker-hub-registry" title="Permalink to this headline">¶</a></h2>
+<p>To use <strong>Docker Hub</strong> as a registry first you have to create a
+<a class="reference external" href="https://docs.docker.com/docker-id/">Docker ID account</a>
+in <a class="reference external" href="https://hub.docker.com/">Docker Hub</a>. Your
+Docker ID (username) and password are used to push Docker images to the registry.</p>
+<p>If you want to store Docker images under an organization, you can
+<a class="reference external" href="https://docs.docker.com/docker-hub/orgs/">create an organization</a>.
+This is useful if different Binder instances want to use same registry to store images.</p>
+<p>See the next section for how to properly configure your BinderHub to use
+Docker Hub.</p>
+</div>
+<div class="section" id="next-step">
+<h2>2.3. Next step<a class="headerlink" href="#next-step" title="Permalink to this headline">¶</a></h2>
+<p>Now that our cloud resources are set up, it’s time to <a class="reference internal" href="setup-binderhub.html"><span class="doc">Set up BinderHub</span></a>.</p>
+</div>
+</div>
+
+
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="create-cloud-resources.html" title="previous chapter">1. Create your cloud resources</a>
+     <a class='right-next' href="setup-binderhub.html" title="next chapter">3. Set up BinderHub</a>
+  <div style='clear:both;'></div>
+
+  </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">BinderHub</a></h1>
+
+
+
+<p class="blurb">A project to build and serve Binders</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jupyterhub&repo=binderhub&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="create-cloud-resources.html">1. Create your cloud resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Set up the container registry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-google-container-registry">2.1. Set up Google Container Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-docker-hub-registry">2.2. Set up Docker Hub registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-step">2.3. Next step</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">4. Tear down your Binder deployment</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">2. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing.html">3. Customizing your BinderHub deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">4. BinderHub API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known-deployments.html">5. BinderHub Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">6. Configuration and Source Code Reference</a></li>
+</ul>
+
+
+<div class="relations">
+<h3>Navigation</h3>
+<ul>
+  <li><a href="index.html">Documentation Home</a><ul>
+  <li><a href="create-cloud-resources.html" title="Previous">Previous topic</a></li>
+  <li><a href="setup-binderhub.html" title="Next">Next topic</a></li>
+  </ul>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/setup-registry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, The Jupyter Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/setup-registry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

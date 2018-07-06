@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>2. Debugging BinderHub &#8212; BinderHub 0.1.0 documentation</title>
+    <title>5. BinderHub Deployments &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -19,8 +19,8 @@
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Customizing your BinderHub deployment" href="customizing.html" />
-    <link rel="prev" title="1. The BinderHub Architecture" href="overview.html" />
+    <link rel="next" title="6. Configuration and Source Code Reference" href="reference/ref-index.html" />
+    <link rel="prev" title="4. BinderHub API Documentation" href="api.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,34 +37,38 @@
             
   <div class='prev-next-top'>
     
-     <a class='left-prev' href="overview.html" title="previous chapter">Previous</a>
-     <a class='right-next' href="customizing.html" title="next chapter">Next</a>
+     <a class='left-prev' href="api.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="reference/ref-index.html" title="next chapter">Next</a>
   <div style='clear:both;'></div>
 
   </div>
 
   
-  <div class="section" id="debugging-binderhub">
-<h1>2. Debugging BinderHub<a class="headerlink" href="#debugging-binderhub" title="Permalink to this headline">¶</a></h1>
-<p>If BinderHub isn’t behaving as you’d expect, you’ll need to debug your
-kubernetes deployment of the JupyterHub and BinderHub services. For a
-guide on how to debug in Kubernetes, see the <a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/debug.html">Zero to JupyterHub debugging
-guide</a>.</p>
-<div class="section" id="changing-the-helm-chart">
-<h2>2.1. Changing the helm chart<a class="headerlink" href="#changing-the-helm-chart" title="Permalink to this headline">¶</a></h2>
-<p>If you make changes to your Helm Chart (e.g., while debugging), you should
-run an upgrade on your Kubernetes deployment like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">upgrade</span> <span class="n">binder</span> <span class="n">jupyterhub</span><span class="o">/</span><span class="n">binderhub</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="n">v0</span><span class="o">.</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">397</span><span class="n">eb59</span> <span class="o">-</span><span class="n">f</span> <span class="n">secret</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">f</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
-</pre></div>
-</div>
+  <div class="section" id="binderhub-deployments">
+<h1>5. BinderHub Deployments<a class="headerlink" href="#binderhub-deployments" title="Permalink to this headline">¶</a></h1>
+<p>BinderHub is open-source technology that can be deployed anywhere that
+Kubernetes is deployed. The Binder community hopes that it will be used
+for many applications in research and education. As new organizations adopt
+BinderHub, we’ll update this page in order to provide inspiration to others
+who wish to do so.</p>
+<p>If you or your organization has set up a BinderHub that isn’t listed here,
+please <a class="reference external" href="https://github.com/jupyterhub/binderhub/issues">open an issue</a> on
+our GitHub repository to discuss adding it!</p>
+<div class="section" id="gesis-leibniz-institute-for-the-social-sciences">
+<h2>5.1. GESIS - Leibniz-Institute for the Social Sciences<a class="headerlink" href="#gesis-leibniz-institute-for-the-social-sciences" title="Permalink to this headline">¶</a></h2>
+<p>Deployed on bare-metal using <code class="docutils literal notranslate"><span class="pre">kubeadm</span></code>.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/gesiscss/orc">Deployment repository</a></li>
+<li><a class="reference external" href="https://notebooks.gesis.org/">BinderHub / JupyterHub links</a></li>
+</ul>
 </div>
 </div>
 
 
   <div class='prev-next-bottom'>
     
-     <a class='left-prev' href="overview.html" title="previous chapter">1. The BinderHub Architecture</a>
-     <a class='right-next' href="customizing.html" title="next chapter">3. Customizing your BinderHub deployment</a>
+     <a class='left-prev' href="api.html" title="previous chapter">4. BinderHub API Documentation</a>
+     <a class='right-next' href="reference/ref-index.html" title="next chapter">6. Configuration and Source Code Reference</a>
   <div style='clear:both;'></div>
 
   </div>
@@ -105,13 +109,13 @@ run an upgrade on your Kubernetes deployment like so:</p>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. The BinderHub Architecture</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Debugging BinderHub</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#changing-the-helm-chart">2.1. Changing the helm chart</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">2. Debugging BinderHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customizing.html">3. Customizing your BinderHub deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">4. BinderHub API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known-deployments.html">5. BinderHub Deployments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. BinderHub Deployments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gesis-leibniz-institute-for-the-social-sciences">5.1. GESIS - Leibniz-Institute for the Social Sciences</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">6. Configuration and Source Code Reference</a></li>
 </ul>
 
@@ -120,15 +124,15 @@ run an upgrade on your Kubernetes deployment like so:</p>
 <h3>Navigation</h3>
 <ul>
   <li><a href="index.html">Documentation Home</a><ul>
-  <li><a href="overview.html" title="Previous">Previous topic</a></li>
-  <li><a href="customizing.html" title="Next">Next topic</a></li>
+  <li><a href="api.html" title="Previous">Previous topic</a></li>
+  <li><a href="reference/ref-index.html" title="Next">Next topic</a></li>
   </ul>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/debug.rst.txt"
+      <li><a href="_sources/known-deployments.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -156,7 +160,7 @@ run an upgrade on your Kubernetes deployment like so:</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/debug.rst.txt"
+      <a href="_sources/known-deployments.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

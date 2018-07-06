@@ -6,32 +6,26 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Search &#8212; BinderHub 0.1.0 documentation</title>
+    <title>3. Customizing your BinderHub deployment &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.css" type="text/css" />
+    <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
-    <script type="text/javascript" src="_static/searchtools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
-  
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. BinderHub API Documentation" href="api.html" />
+    <link rel="prev" title="2. Debugging BinderHub" href="debug.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
 
   </head><body>
   
@@ -41,28 +35,39 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <script type="text/javascript">$('#fallback').hide();</script>
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
+  <div class='prev-next-top'>
+    
+     <a class='left-prev' href="debug.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="api.html" title="next chapter">Next</a>
+  <div style='clear:both;'></div>
+
   </div>
-  <p>
-    From here you can search these documents. Enter your search
-    words into the box below and click "search". Note that the search
-    function will automatically search for all of the words. Pages
-    containing fewer words won't appear in the result list.
-  </p>
-  <form action="" method="get">
-    <input type="text" name="q" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
+
   
-  <div id="search-results">
-  
+  <div class="section" id="customizing-your-binderhub-deployment">
+<h1>3. Customizing your BinderHub deployment<a class="headerlink" href="#customizing-your-binderhub-deployment" title="Permalink to this headline">¶</a></h1>
+<p>Because BinderHub uses JupyterHub to manage all user sessions, you can
+customize many aspects of the resources available to the user. This is
+primarily done by modifications to your BinderHub’s Helm chart (<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>).</p>
+<p>To make edits to your JupyterHub deplyoment via <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, use
+the following pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binderhub</span><span class="p">:</span>
+   <span class="n">jupyterhub</span><span class="p">:</span>
+      <span class="o">&lt;</span><span class="n">JUPYTERHUB</span><span class="o">-</span><span class="n">CONFIG</span><span class="o">-</span><span class="n">YAML</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>For example, see <a class="reference external" href="https://github.com/jupyterhub/mybinder.org-deploy/blob/staging/mybinder/values.yaml#L54">this section of the mybinder.org Helm Chart</a>.</p>
+<p>For information on how to configure your JupyterHub deployment, see the
+<a class="reference external" href="https://zero-to-jupyterhub.readthedocs.io/en/latest/#customization-guide">JupyterHub for Kubernetes Customization Guide</a>.</p>
+</div>
+
+
+  <div class='prev-next-bottom'>
+    
+     <a class='left-prev' href="debug.html" title="previous chapter">2. Debugging BinderHub</a>
+     <a class='right-next' href="api.html" title="next chapter">4. BinderHub API Documentation</a>
+  <div style='clear:both;'></div>
+
   </div>
 
           </div>
@@ -99,10 +104,10 @@
 <li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="turn-off.html">4. Tear down your Binder deployment</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">1. The BinderHub Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">2. Debugging BinderHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customizing.html">3. Customizing your BinderHub deployment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Customizing your BinderHub deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">4. BinderHub API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known-deployments.html">5. BinderHub Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">6. Configuration and Source Code Reference</a></li>
@@ -113,9 +118,30 @@
 <h3>Navigation</h3>
 <ul>
   <li><a href="index.html">Documentation Home</a><ul>
+  <li><a href="debug.html" title="Previous">Previous topic</a></li>
+  <li><a href="api.html" title="Next">Next topic</a></li>
   </ul>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/customizing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -127,6 +153,9 @@
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
+      |
+      <a href="_sources/customizing.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
 
     

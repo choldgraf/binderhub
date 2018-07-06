@@ -4,36 +4,30 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>7.2. build &#8212; BinderHub 0.1.0 documentation</title>
+    <title>6.2. build &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7.3. builder" href="builder.html" />
-    <link rel="prev" title="7.1. app" href="app.html" />
+    <link rel="next" title="6.3. builder" href="builder.html" />
+    <link rel="prev" title="6.1. app" href="app.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -51,73 +45,20 @@
 
   
   <div class="section" id="build">
-<h1>7.2. build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-binderhub.build">
-<span id="module-binderhub-build"></span><h2>7.2.1. Module: <a class="reference internal" href="#module-binderhub.build" title="binderhub.build"><code class="xref py py-mod docutils literal"><span class="pre">binderhub.build</span></code></a><a class="headerlink" href="#module-binderhub.build" title="Permalink to this headline">¶</a></h2>
-<p>Contains build of a docker image from a git repository.</p>
+<h1>6.2. build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-binderhub-build">
+<h2>6.2.1. Module: <code class="xref py py-mod docutils literal notranslate"><span class="pre">binderhub.build</span></code><a class="headerlink" href="#module-binderhub-build" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="id1">
-<h2>7.2.2. <a class="reference internal" href="#binderhub.build.Build" title="binderhub.build.Build"><code class="xref py py-class docutils literal"><span class="pre">Build</span></code></a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="binderhub.build.Build">
-<em class="property">class </em><code class="descclassname">binderhub.build.</code><code class="descname">Build</code><span class="sig-paren">(</span><em>q</em>, <em>api</em>, <em>name</em>, <em>namespace</em>, <em>git_url</em>, <em>ref</em>, <em>builder_image</em>, <em>image_name</em>, <em>push_secret</em>, <em>memory_limit</em>, <em>docker_host</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a build of a git repository into a docker image.</p>
-<p>This ultimately maps to a single pod on a kubernetes cluster. Many
-different build objects can point to this single pod and perform
-operations on the pod. The code in this class needs to be careful and take
-this into account.</p>
-<p>For example, operations a Build object tries might not succeed because
-another Build object pointing to the same pod might have done something
-else. This should be handled gracefully, and the build object should
-reflect the state of the pod as quickly as possible.</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">name</span></code></dt>
-<dd>The <code class="docutils literal"><span class="pre">name</span></code> should be unique and immutable since it is used to
-sync to the pod. The <code class="docutils literal"><span class="pre">name</span></code> should be unique for a
-<code class="docutils literal"><span class="pre">(git_url,</span> <span class="pre">ref)</span></code> tuple, and the same tuple should correspond
-to the same <code class="docutils literal"><span class="pre">name</span></code>. This allows use of the locking provided by k8s
-API instead of having to invent our own locking code.</dd>
-</dl>
-<dl class="method">
-<dt id="binderhub.build.Build.cleanup">
-<code class="descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build.cleanup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete a kubernetes pod.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="binderhub.build.Build.get_cmd">
-<code class="descname">get_cmd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build.get_cmd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the cmd to run to build the image</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="binderhub.build.Build.progress">
-<code class="descname">progress</code><span class="sig-paren">(</span><em>kind</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build.progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Put the current action item into the queue for execution.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="binderhub.build.Build.stream_logs">
-<code class="descname">stream_logs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build.stream_logs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stream a pod’s log.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="binderhub.build.Build.submit">
-<code class="descname">submit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#binderhub.build.Build.submit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Submit a image spec to openshift’s s2i and wait for completion</p>
-</dd></dl>
-
-</dd></dl>
-
+<h2>6.2.2. <code class="xref py py-class docutils literal notranslate"><span class="pre">Build</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
 
   <div class='prev-next-bottom'>
     
-     <a class='left-prev' href="app.html" title="previous chapter">7.1. app</a>
-     <a class='right-next' href="builder.html" title="next chapter">7.3. builder</a>
+     <a class='left-prev' href="app.html" title="previous chapter">6.1. app</a>
+     <a class='right-next' href="builder.html" title="next chapter">6.3. builder</a>
   <div style='clear:both;'></div>
 
   </div>
@@ -150,20 +91,25 @@ API instead of having to invent our own locking code.</dd>
 
 
 <h3>Table of Contents</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../diagram.html">1. The BinderHub Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../create-cloud-resources.html">2. Create your cloud resources</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../create-cloud-resources.html">1. Create your cloud resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup-registry.html">2. Set up the container registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup-binderhub.html">3. Set up BinderHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">4. Debugging BinderHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../turn-off.html">5. Tear down your Binder deployment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">6. BinderHub API Documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="ref-index.html">7. Configuration and Source Code Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="app.html">7.1. app</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="builder.html">7.3. builder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">7.4. main</a></li>
-<li class="toctree-l2"><a class="reference internal" href="registry.html">7.5. registry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="repoproviders.html">7.6. repoproviders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turn-off.html">4. Tear down your Binder deployment</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">2. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customizing.html">3. Customizing your BinderHub deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">4. BinderHub API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../known-deployments.html">5. BinderHub Deployments</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ref-index.html">6. Configuration and Source Code Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.html">6.1. app</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.2. build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builder.html">6.3. builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">6.4. main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="registry.html">6.5. registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repoproviders.html">6.6. repoproviders</a></li>
 </ul>
 </li>
 </ul>
@@ -187,12 +133,14 @@ API instead of having to invent our own locking code.</dd>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -203,7 +151,7 @@ API instead of having to invent our own locking code.</dd>
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

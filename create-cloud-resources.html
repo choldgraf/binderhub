@@ -4,36 +4,30 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>2. Create your cloud resources &#8212; BinderHub 0.1.0 documentation</title>
+    <title>1. Create your cloud resources &#8212; BinderHub 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/choldgraf/sphinx-copybutton/master/_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Set up BinderHub" href="setup-binderhub.html" />
-    <link rel="prev" title="1. The BinderHub Architecture" href="diagram.html" />
+    <link rel="next" title="2. Set up the container registry" href="setup-registry.html" />
+    <link rel="prev" title="BinderHub" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -43,15 +37,15 @@
             
   <div class='prev-next-top'>
     
-     <a class='left-prev' href="diagram.html" title="previous chapter">Previous</a>
-     <a class='right-next' href="setup-binderhub.html" title="next chapter">Next</a>
+     <a class='left-prev' href="index.html" title="previous chapter">Previous</a>
+     <a class='right-next' href="setup-registry.html" title="next chapter">Next</a>
   <div style='clear:both;'></div>
 
   </div>
 
   
   <div class="section" id="create-your-cloud-resources">
-<span id="create-cluster"></span><h1>2. Create your cloud resources<a class="headerlink" href="#create-your-cloud-resources" title="Permalink to this headline">¶</a></h1>
+<span id="create-cluster"></span><h1>1. Create your cloud resources<a class="headerlink" href="#create-your-cloud-resources" title="Permalink to this headline">¶</a></h1>
 <p>BinderHub is built to run on top of Kubernetes, a distributed cluster manager.
 It uses a JupyterHub to launch/manage user servers, as well as a
 docker registry to cache images.</p>
@@ -60,7 +54,7 @@ configured Kubernetes Cluster on the cloud, and then configure the
 various components correctly. The following instructions will assist you
 in doing so.</p>
 <div class="section" id="setting-up-kubernetes-on-google-cloud">
-<h2>2.1. Setting up Kubernetes on <a class="reference external" href="https://cloud.google.com/">Google Cloud</a><a class="headerlink" href="#setting-up-kubernetes-on-google-cloud" title="Permalink to this headline">¶</a></h2>
+<h2>1.1. Setting up Kubernetes on <a class="reference external" href="https://cloud.google.com/">Google Cloud</a><a class="headerlink" href="#setting-up-kubernetes-on-google-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">BinderHub is built to be cloud agnostic, and can run on various cloud
@@ -69,103 +63,22 @@ instructions for Google Cloud as it has been the most extensively-tested.
 If you would like to help with adding instructions for other cloud
 providers, <a class="reference external" href="https://github.com/jupyterhub/binderhub/issues">please contact us</a>!</p>
 </div>
-<hr class="docutils" />
-<p><a class="reference external" href="https://cloud.google.com/kubernetes-engine/">Google Kubernetes Engine</a>
-(GKE) is the simplest and most common way of setting
-up a Kubernetes Cluster. You may be able to receive <a class="reference external" href="https://cloud.google.com/free/">free credits</a> for trying it out. You will need to
-connect your credit card or other payment method to your google cloud account.</p>
-<ol class="arabic">
-<li><p class="first">Go to <code class="docutils literal"><span class="pre">https://console.cloud.google.com</span></code> and log in.</p>
-</li>
-<li><p class="first">Enable the <a class="reference external" href="https://console.cloud.google.com/apis/api/container.googleapis.com/overview">Kubernetes Engine API</a>.</p>
-</li>
-<li><p class="first">Use your preferred command line interface.</p>
-<p>You have two options: a) use the Google Cloud Shell (no installation needed)
-or b) install and use the gcloud command-line tool.
-If you are unsure which to choose, we recommend beginning with option
-“a” and using the Google Cloud Shell. Instructions
-for each are detailed below:</p>
-<ol class="loweralpha simple">
-<li><strong>Use the Google Cloud Shell</strong>. Start the Google Cloud Shell</li>
-</ol>
-<blockquote>
-<div><p>by clicking the button shown below. This will start an interactive shell
-session within Google Cloud.</p>
-</div></blockquote>
-<img alt="_static/images/google/start_interactive_cli.png" class="align-center" src="_static/images/google/start_interactive_cli.png" />
-<p>See the <a class="reference external" href="https://cloud.google.com/shell/docs/">Google Cloud Shell docs</a>
-for more information.</p>
-<ul class="simple">
-<li><strong>Install and use the gcloud command line tool</strong>.
-This tool sends commands to Google Cloud and lets you do things like create
-and delete clusters.<ul>
-<li>Go to the <a class="reference external" href="https://cloud.google.com/sdk/downloads">gcloud command line tool downloads page</a>
-to <strong>download and install the gcloud command line tool</strong>.</li>
-<li>See the <a class="reference external" href="https://cloud.google.com/pubsub/docs/quickstart-cli">gcloud documentation</a> for
-more information on the gcloud command line tool.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p class="first">Install <code class="docutils literal"><span class="pre">kubectl</span></code>, which is a tool for controlling kubernetes. From
-the terminal, enter:</p>
-<blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud components install kubectl
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Create a Kubernetes cluster on Google Cloud, by typing the following
-command into either the Google Cloud shell or the gcloud command-line tool:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>gcloud container clusters create &lt;YOUR-CLUSTER&gt; <span class="se">\</span>
-    --num-nodes<span class="o">=</span><span class="m">3</span> <span class="se">\</span>
-    --machine-type<span class="o">=</span>n1-standard-2 <span class="se">\</span>
-    --zone<span class="o">=</span>us-central1-b <span class="se">\</span>
-    --cluster-version<span class="o">=</span><span class="m">1</span>.8.6-gke.0
-</pre></div>
-</div>
-<p>where:</p>
-<ul class="simple">
-<li><code class="docutils literal"><span class="pre">--num-nodes</span></code> specifies how many computers to spin up. The higher the
-number, the greater the cost.</li>
-<li><code class="docutils literal"><span class="pre">--machine-type</span></code> specifies the amount of CPU and RAM in each node. There
-is a <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">variety of types</a>
-to choose from. Picking something appropriate here will have a large effect
-on how much you pay - smaller machines restrict the max amount of RAM each
-user can have access to but allow more fine-grained scaling, reducing cost.
-The default (<code class="docutils literal"><span class="pre">n1-standard-2</span></code>) has 2CPUs and 7.5G of RAM each, and might not
-be a good fit for all use cases!</li>
-<li><code class="docutils literal"><span class="pre">--zone</span></code> specifies which data center to use. Pick something that is not
-too far away from your users. You can find a list of them <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/regions-zones#available">here</a>.</li>
-<li><code class="docutils literal"><span class="pre">--cluster-version</span></code> specifies the version of kubernetes we want. Here,
-we specify the minimum that the default configuration will support.</li>
-</ul>
-</li>
-<li><p class="first">To test if your cluster is initialized, run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl get node
-</pre></div>
-</div>
-<p>The response should list three running nodes.</p>
-</li>
-<li><p class="first">Give your account super-user permissions, allowing you to perform all
-the actions needed to set up JupyterHub.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding cluster-admin-binding --clusterrole<span class="o">=</span>cluster-admin --user<span class="o">=</span>&lt;YOUR-EMAIL-ADDRESS&gt;
-</pre></div>
-</div>
-</li>
-</ol>
 </div>
 <div class="section" id="install-helm">
-<h2>2.2. Install Helm<a class="headerlink" href="#install-helm" title="Permalink to this headline">¶</a></h2>
+<h2>1.2. Install Helm<a class="headerlink" href="#install-helm" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://helm.sh/">Helm</a>, the package manager for Kubernetes, is a useful tool
 to install, upgrade and manage applications on a Kubernetes cluster. We will be
 using Helm to install and manage JupyterHub on our cluster.</p>
+<p>Helm works by initializing itself both locally (on your computer) and remotely
+(on your kubernetes cluster). When you run <code class="docutils literal notranslate"><span class="pre">helm</span></code> commands, your local helm
+client sends instructions to the <code class="docutils literal notranslate"><span class="pre">Tiller</span></code>, which exists on your
+Kubernetes cluster, and is controlled by the server-side <code class="docutils literal notranslate"><span class="pre">helm</span></code> install.</p>
 <div class="section" id="installation">
-<h3>2.2.1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<h3>1.2.1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>The simplest way to install helm is to run Helm’s installer script at a
 terminal:</p>
 <blockquote>
-<div><div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">|</span> <span class="n">bash</span>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">helm</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">get</span> <span class="o">|</span> <span class="n">bash</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -173,105 +86,87 @@ terminal:</p>
 exist if you prefer to install without using the script.</p>
 </div>
 <div class="section" id="initialization">
-<span id="helm-rbac"></span><h3>2.2.2. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
+<span id="helm-rbac"></span><h3>1.2.2. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
 <p>After installing helm on your machine, initialize helm on your Kubernetes
-cluster. At the terminal, enter:</p>
+cluster. At a terminal for your local machine (or within an interactive cloud
+shell from your provider), enter:</p>
 <ol class="arabic">
 <li><p class="first">Set up a <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/">ServiceAccount</a>
-for use by <code class="docutils literal"><span class="pre">Tiller</span></code>, the server side component of <code class="docutils literal"><span class="pre">helm</span></code>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl --namespace kube-system create serviceaccount tiller
+for use by <code class="docutils literal notranslate"><span class="pre">Tiller</span></code>, the server side component of <code class="docutils literal notranslate"><span class="pre">helm</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl --namespace kube-system create serviceaccount tiller
 </pre></div>
 </div>
 <p><strong>Azure AKS</strong>: If you’re on Azure AKS, you should now skip directly to step 3.**</p>
 </li>
-<li><p class="first">Give the <code class="docutils literal"><span class="pre">ServiceAccount</span></code> <a class="reference external" href="https://kubernetes.io/docs/admin/authorization/rbac/">RBAC</a> full permissions to
-manage the cluser.</p>
+<li><p class="first">Give the <code class="docutils literal notranslate"><span class="pre">ServiceAccount</span></code> <a class="reference external" href="https://kubernetes.io/docs/admin/authorization/rbac/">RBAC</a> full permissions to
+manage the cluster.</p>
 <p>While most clusters have RBAC enabled and you need this
 line, you <strong>must</strong> skip this step if your kubernetes cluster does not have
 RBAC enabled (for example, if you are using Azure AKS).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount<span class="o">=</span>kube-system:tiller
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount<span class="o">=</span>kube-system:tiller
 </pre></div>
 </div>
 </li>
 <li><p class="first">Set up Helm on the cluster.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>helm init --service-account tiller
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm init --service-account tiller
 </pre></div>
 </div>
 </li>
 </ol>
 <p>This command only needs to run once per Kubernetes cluster.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The local and remote version of <code class="docutils literal notranslate"><span class="pre">helm</span></code> must be the same in order to
+ensure they can talk to each other. If you wish to run <code class="docutils literal notranslate"><span class="pre">helm</span></code> commands
+from a <em>new</em> computer than the one used to run the commands above, you
+must re-initialize it by running the following modified version of
+the <code class="docutils literal notranslate"><span class="pre">init</span></code> command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">init</span> <span class="pre">--client-only</span> <span class="pre">--service-account</span> <span class="pre">tiller</span></code></p>
+<p class="last">This will initialize <code class="docutils literal notranslate"><span class="pre">helm</span></code> locally, according to the version that is
+running remotely on the cluster. Note that this requires <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>
+to point to the correct kubernetes cluster. See <a class="reference external" href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">the kubernetes context
+manager</a>
+for more details.</p>
+</div>
 </div>
 <div class="section" id="verify">
-<h3>2.2.3. Verify<a class="headerlink" href="#verify" title="Permalink to this headline">¶</a></h3>
+<h3>1.2.3. Verify<a class="headerlink" href="#verify" title="Permalink to this headline">¶</a></h3>
 <p>You can verify that you have the correct version and that it installed
 properly by running:</p>
 <blockquote>
-<div><div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">version</span>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>It should provide output like</p>
+<p>It should provide output like:</p>
 <blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span></span>Client: <span class="p">&amp;</span>version.Version<span class="o">{</span>SemVer:<span class="s2">&quot;v2.4.1&quot;</span>, GitCommit:<span class="s2">&quot;46d9ea82e2c925186e1fc620a8320ce1314cbb02&quot;</span>, GitTreeState:<span class="s2">&quot;clean&quot;</span><span class="o">}</span>
-Server: <span class="p">&amp;</span>version.Version<span class="o">{</span>SemVer:<span class="s2">&quot;v2.4.1&quot;</span>, GitCommit:<span class="s2">&quot;46d9ea82e2c925186e1fc620a8320ce1314cbb02&quot;</span>, GitTreeState:<span class="s2">&quot;clean&quot;</span><span class="o">}</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Client: <span class="p">&amp;</span>version.Version<span class="o">{</span>SemVer:<span class="s2">&quot;v2.8.1&quot;</span>, GitCommit:<span class="s2">&quot;46d9ea82e2c925186e1fc620a8320ce1314cbb02&quot;</span>, GitTreeState:<span class="s2">&quot;clean&quot;</span><span class="o">}</span>
+Server: <span class="p">&amp;</span>version.Version<span class="o">{</span>SemVer:<span class="s2">&quot;v2.8.1&quot;</span>, GitCommit:<span class="s2">&quot;46d9ea82e2c925186e1fc620a8320ce1314cbb02&quot;</span>, GitTreeState:<span class="s2">&quot;clean&quot;</span><span class="o">}</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>Make sure you have at least version 2.4.1!</p>
+<p>Make sure you have at least version 2.8.1!</p>
+<p>If you receive an error that the Server is unreachable, do another <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">version</span></code>
+in 15-30 seconds, and it should display the Server version.</p>
 </div>
 <div class="section" id="secure-helm">
-<h3>2.2.4. Secure Helm<a class="headerlink" href="#secure-helm" title="Permalink to this headline">¶</a></h3>
+<h3>1.2.4. Secure Helm<a class="headerlink" href="#secure-helm" title="Permalink to this headline">¶</a></h3>
 <p>Ensure that <a class="reference external" href="https://engineering.bitnami.com/articles/helm-security.html">tiller is secure</a> from access inside the cluster:</p>
 <blockquote>
-<div><div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">patch</span> <span class="n">deployment</span> <span class="n">tiller</span><span class="o">-</span><span class="n">deploy</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">json</span> <span class="o">--</span><span class="n">patch</span><span class="o">=</span><span class="s1">&#39;[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/spec/template/spec/containers/0/command&quot;, &quot;value&quot;: [&quot;/tiller&quot;, &quot;--listen=localhost:44134&quot;]}]&#39;</span>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="o">--</span><span class="n">namespace</span><span class="o">=</span><span class="n">kube</span><span class="o">-</span><span class="n">system</span> <span class="n">patch</span> <span class="n">deployment</span> <span class="n">tiller</span><span class="o">-</span><span class="n">deploy</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">json</span> <span class="o">--</span><span class="n">patch</span><span class="o">=</span><span class="s1">&#39;[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/spec/template/spec/containers/0/command&quot;, &quot;value&quot;: [&quot;/tiller&quot;, &quot;--listen=localhost:44134&quot;]}]&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
+<p>Now that you’ve installed Kubernetes and Helm, it’s time to <a class="reference internal" href="setup-registry.html#setup-registry"><span class="std std-ref">Set up the container registry</span></a>.</p>
 </div>
-</div>
-<div class="section" id="set-up-the-container-registry">
-<span id="setup-registry"></span><h2>2.3. Set up the container registry<a class="headerlink" href="#set-up-the-container-registry" title="Permalink to this headline">¶</a></h2>
-<p>BinderHub will build Docker images out of GitHub repositories, and then push
-them to a docker registry so that JupyterHub can launch user servers based
-on these images.You can use any registry that
-you like, though this guide covers how to properly configure the <strong>Google
-Container Registry</strong> (<code class="docutils literal"><span class="pre">gcr.io</span></code>).</p>
-<p>You need to provide BinderHub with proper credentials so it can push images
-to the Google Container Registry. You can do so by creating a service
-account that has authorization to push to Google Container Registry:</p>
-<ol class="arabic simple">
-<li>Go to <a class="reference external" href="http://console.cloud.google.com">console.cloud.google.com</a></li>
-<li>Make sure your project is selected</li>
-<li>Click <code class="docutils literal"><span class="pre">&lt;top-left</span> <span class="pre">menu</span> <span class="pre">w/</span> <span class="pre">three</span> <span class="pre">horizontal</span> <span class="pre">bars&gt;</span> <span class="pre">-&gt;</span> <span class="pre">IAM</span> <span class="pre">&amp;</span> <span class="pre">Admin</span> <span class="pre">-&gt;</span> <span class="pre">Service</span> <span class="pre">Accounts</span></code> menu option</li>
-<li>Click <strong>Create service account</strong></li>
-<li>Give your account a descriptive name such as “BinderHub-registry”</li>
-<li>Click <code class="docutils literal"><span class="pre">Role</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">-&gt;</span> <span class="pre">Storage</span> <span class="pre">Admin</span></code> menu option</li>
-<li>Check <strong>Furnish new private key</strong></li>
-<li>Leave key type as default of <strong>JSON</strong></li>
-<li>Click <strong>Create</strong></li>
-</ol>
-<p>These steps will download a <strong>JSON file</strong> to your computer. The JSON file
-contains the password that can be used to push Docker images to the <code class="docutils literal"><span class="pre">gcr.io</span></code>
-registry.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Don’t share the contents of this JSON file with anyone. It can be used to
-gain access to your google cloud account!</p>
-</div>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Make sure to store this JSON file as you cannot generate a second one
-without re-doing the steps above.</p>
-</div>
-<p>Now that our cloud resources are set up, it’s time to <a class="reference internal" href="setup-binderhub.html"><span class="doc">Set up BinderHub</span></a>.</p>
 </div>
 </div>
 
 
   <div class='prev-next-bottom'>
     
-     <a class='left-prev' href="diagram.html" title="previous chapter">1. The BinderHub Architecture</a>
-     <a class='right-next' href="setup-binderhub.html" title="next chapter">3. Set up BinderHub</a>
+     <a class='left-prev' href="index.html" title="previous chapter">BinderHub</a>
+     <a class='right-next' href="setup-registry.html" title="next chapter">2. Set up the container registry</a>
   <div style='clear:both;'></div>
 
   </div>
@@ -305,18 +200,22 @@ without re-doing the steps above.</p>
 
 <h3>Table of Contents</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="diagram.html">1. The BinderHub Architecture</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Create your cloud resources</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">2.1. Setting up Kubernetes on Google Cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-helm">2.2. Install Helm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-up-the-container-registry">2.3. Set up the container registry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Create your cloud resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-kubernetes-on-google-cloud">1.1. Setting up Kubernetes on Google Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-helm">1.2. Install Helm</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="setup-registry.html">2. Set up the container registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup-binderhub.html">3. Set up BinderHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">4. Debugging BinderHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="turn-off.html">5. Tear down your Binder deployment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">6. BinderHub API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">7. Configuration and Source Code Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turn-off.html">4. Tear down your Binder deployment</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. The BinderHub Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">2. Debugging BinderHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing.html">3. Customizing your BinderHub deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">4. BinderHub API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known-deployments.html">5. BinderHub Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/ref-index.html">6. Configuration and Source Code Reference</a></li>
 </ul>
 
 
@@ -324,8 +223,8 @@ without re-doing the steps above.</p>
 <h3>Navigation</h3>
 <ul>
   <li><a href="index.html">Documentation Home</a><ul>
-  <li><a href="diagram.html" title="Previous">Previous topic</a></li>
-  <li><a href="setup-binderhub.html" title="Next">Next topic</a></li>
+  <li><a href="index.html" title="Previous">Previous topic</a></li>
+  <li><a href="setup-registry.html" title="Next">Next topic</a></li>
   </ul>
 </ul>
 </div>
@@ -338,12 +237,14 @@ without re-doing the steps above.</p>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -354,7 +255,7 @@ without re-doing the steps above.</p>
       &copy;2017, The Jupyter Team.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
