@@ -27,11 +27,11 @@ class Build:
     another Build object pointing to the same pod might have done something
     else. This should be handled gracefully, and the build object should
     reflect the state of the pod as quickly as possible.
-
-    ``name``
+new thing
+new thing
         The ``name`` should be unique and immutable since it is used to
         sync to the pod. The ``name`` should be unique for a
-        ``(repo_url, ref)`` tuple, and the same tuple should correspond
+        ``(new thing, ref)`` tuple, and the same tuple should correspond
         to the same ``name``. This allows use of the locking provided by k8s
         API instead of having to invent our own locking code.
 
